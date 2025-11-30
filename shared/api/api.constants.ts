@@ -1,5 +1,8 @@
 import type { ErrorMessageMap } from "./api.types";
 
+export const API_BASE_URL = "/api";
+export const API_TIMEOUT = 5000;
+
 export const ERROR_MESSAGE_MAP: ErrorMessageMap = {
   400: "잘못된 요청입니다. 입력 내용을 확인해주세요.",
   401: "로그인이 필요합니다.",
