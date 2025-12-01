@@ -1,3 +1,8 @@
+---
+visibility: human+ai
+origin: assistant
+---
+
 # 코드 스타일 규칙
 
 ## 핵심
@@ -25,8 +30,7 @@ export const UserCard = ({ user }: UserProps) => {
 ## 함수 원칙
 
 - Early return으로 예외 제거
-- **유틸 함수는 반드시 `{feature}.utils.ts` 파일로 분리** (`naming-conventions.md` 참고)
-- 단일 파일에 유틸 함수가 3개 이상이면 분리 검토
+- 유틸 함수는 `{feature}.utils.ts` 파일로 분리 (`naming-conventions.md` 참고)
 
 ## 선언적 패턴
 
@@ -35,8 +39,8 @@ export const UserCard = ({ user }: UserProps) => {
 
 ## 체크리스트
 
-- [ ] 컴포넌트에 `if (isLoading|error)` 없음
-- [ ] 비즈니스 로직이 hook에 존재
-- [ ] QueryBoundary 사용
-- [ ] 줄 수/복잡도 제한 준수
-- [ ] 유틸 함수가 `{feature}.utils.ts`로 분리되어 있는가?
+- [ ] 컴포넌트에 `if (isLoading)` 또는 `if (error)` 조건문이 없는가? (QueryBoundary 사용)
+- [ ] 데이터 fetching, 상태 업데이트 등 비즈니스 로직이 custom hook에 있는가?
+- [ ] 로딩/에러 처리를 위해 `QueryBoundary` 컴포넌트를 사용하는가?
+- [ ] 파일이 250줄 이하이고 함수가 50줄 이하인가?
+- [ ] 유틸 함수 분리 및 상수 네이밍 규칙을 준수하는가? (`naming-conventions.md` 참고)

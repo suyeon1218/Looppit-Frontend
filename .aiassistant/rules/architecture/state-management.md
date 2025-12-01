@@ -1,3 +1,8 @@
+---
+visibility: human+ai
+origin: assistant
+---
+
 # 상태관리 전략
 
 ## 도구 선택
@@ -28,11 +33,15 @@
 
 ## 안티패턴
 
-- 변경이 잦은 값을 Context로 전달
-- React Query를 일반 상태 저장소처럼 남용
-- Props drilling이 3단계 이상 이어짐
+- 변경이 잦은 값을 Context로 전달, React Query를 일반 상태 저장소처럼 남용, Props drilling 3단계 이상
 
 ## 체크리스트
 
-- [ ] 상태 유형에 맞는 도구 선택 (Server State → React Query, Shared → Jotai, Environment → Context)
-- [ ] 안티패턴 회피 (Context 남용, React Query 남용, Props drilling)
+- [ ] API 데이터 캐싱이 React Query로 관리되는가?
+- [ ] 공유 상태가 Jotai atom으로 관리되는가?
+- [ ] 파생 값이 Jotai read-only atom으로 정의되어 있는가?
+- [ ] 환경 값만 Context로 관리되는가?
+- [ ] 단일 컴포넌트 내부 상태는 `useState`로 관리되는가?
+- [ ] 변경이 잦은 값을 Context로 전달하지 않았는가?
+- [ ] React Query를 일반 상태 저장소처럼 사용하지 않았는가?
+- [ ] Props drilling이 3단계 이상 이어지지 않았는가?

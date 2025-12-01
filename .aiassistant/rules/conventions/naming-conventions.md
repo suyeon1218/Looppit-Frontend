@@ -1,3 +1,8 @@
+---
+visibility: human+ai
+origin: assistant
+---
+
 # 네이밍 규칙
 
 ## 케이스 규칙
@@ -30,5 +35,10 @@
 
 ## 체크리스트
 
-- [ ] 모든 상수가 `UPPER_SNAKE_CASE`인가?
-- [ ] 유틸 함수가 `{feature}.utils.ts`로 분리되어 있는가?
+- [ ] 모든 상수가 `UPPER_SNAKE_CASE` 형식인가?
+- [ ] 폴더·파일명이 `kebab-case`인가?
+- [ ] 함수·변수명이 `camelCase`인가?
+- [ ] 타입/인터페이스명이 `PascalCase`인가?
+- [ ] 파일명이 `{feature}.{type}.ts` 패턴을 따르는가?
+- [ ] Hook 파일명이 `use-{feature}.ts` 형식인가?
+- [ ] 유틸 함수가 `{feature}.utils.ts` 파일로 분리되어 있는가?

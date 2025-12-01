@@ -1,3 +1,8 @@
+---
+visibility: human+ai
+origin: assistant
+---
+
 # Import 규칙
 
 import 방식은 도메인 경계(domain boundary) 기준으로 결정한다.
@@ -15,15 +20,14 @@ import 방식은 도메인 경계(domain boundary) 기준으로 결정한다.
 ## 예시
 
 ```typescript
-// 같은 도메인 내부 (상대경로)
-import { useLogin } from "../hooks/useLogin";
+// 같은 도메인 내부
+import { useLogin } from "../hooks/use-login";
 
-// 다른 도메인 / Shared (절대경로)
-import { getUser } from "@/domains/user/user.service";
+// 다른 도메인 / Shared
 import { Button } from "@/shared/ui";
 ```
 
 ## 체크리스트
 
-- [ ] 같은 도메인 내부는 상대경로 사용
-- [ ] 다른 도메인/shared 접근은 절대경로(`@/`) 사용
+- [ ] 같은 도메인 내부 import가 상대경로를 사용하는가?
+- [ ] 다른 도메인/Shared 레이어 접근이 절대경로(`@/`)를 사용하는가?

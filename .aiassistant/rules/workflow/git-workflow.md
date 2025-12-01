@@ -1,3 +1,8 @@
+---
+visibility: human+ai
+origin: assistant
+---
+
 # Git 워크플로우 규칙
 
 ## 브랜치
@@ -17,9 +22,7 @@
 
 - 제목 `{type}: {summary}`, 리뷰어 1명 이상, self merge 금지
 - Merge 전 테스트·CI 통과 및 최소 1회 승인 필요
-- **PR 생성 시 `.github/pull_request_template.md` 읽어 형식에 맞춰 본문 작성**
-  - 템플릿 구조 그대로 복사, 주석(`<!-- -->`)을 실제 내용으로 채움
-  - "변경 유형" 체크박스는 해당 항목만 `[x]` 표시
+- PR 본문은 `.github/pull_request_template.md` 형식에 맞춰 작성
 
 ## 기본 플로우
 
@@ -30,6 +33,10 @@
 
 ## 체크리스트
 
-- [ ] 브랜치/커밋 규칙 준수
-- [ ] 테스트·lint 통과
-- [ ] 민감 정보 포함 여부 확인
+- [ ] 브랜치명이 `feature/*`, `hotfix/*` 형식을 따르는가?
+- [ ] 커밋 메시지가 `<type>(scope): 작업 내용` 형식인가?
+- [ ] 커밋 type이 `feat`/`fix`/`refactor`/`docs`/`chore`/`style` 중 하나인가?
+- [ ] 커밋 메시지가 한글이고 명령형·소문자·마침표 없이 작성되었는가?
+- [ ] PR 제목이 `{type}: {summary}` 형식이고 본문이 템플릿 형식에 맞춰 작성되었는가?
+- [ ] 테스트와 lint가 통과했는가?
+- [ ] 민감 정보가 포함되지 않았는가?
