@@ -15,46 +15,49 @@ const eslintConfig = defineConfig([
     },
     rules: {
       'prettier/prettier': 'error',
-      'import/order': [
-        'error',
-        {
-          groups: [
-            'builtin',
-            'external',
-            'internal',
-            ['parent', 'sibling', 'index'],
-            'type',
-          ],
-          pathGroups: [
-            {
-              pattern: 'react*',
-              group: 'external',
-              position: 'before',
+      rules: {
+        'prettier/prettier': 'error',
+        'import/order': [
+          'error',
+          {
+            groups: [
+              'builtin',
+              'external',
+              'internal',
+              ['parent', 'sibling', 'index'],
+              'type',
+            ],
+            pathGroups: [
+              {
+                pattern: 'react',
+                group: 'external',
+                position: 'before',
+              },
+              {
+                pattern: 'react-*',
+                group: 'external',
+                position: 'before',
+              },
+              {
+                pattern: '@shared/**',
+                group: 'internal',
+                position: 'before',
+              },
+              {
+                pattern: '@domains/**',
+                group: 'internal',
+                position: 'after',
+              },
+            ],
+            pathGroupsExcludedImportTypes: ['react'],
+            'newlines-between': 'always',
+            alphabetize: {
+              order: 'asc',
+              caseInsensitive: true,
             },
-            {
-              pattern: 'next{,/**}',
-              group: 'external',
-              position: 'before',
-            },
-            {
-              pattern: '@/**',
-              group: 'internal',
-              position: 'after',
-            },
-            {
-              pattern: '@icons/**',
-              group: 'internal',
-              position: 'after',
-            },
-          ],
-          pathGroupsExcludedImportTypes: ['react', 'next'],
-          'newlines-between': 'always',
-          alphabetize: {
-            order: 'asc',
-            caseInsensitive: true,
           },
-        },
-      ],
+        ],
+      },
     },
   },
 ]);
