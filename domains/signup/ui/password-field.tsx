@@ -13,8 +13,8 @@ import { Input } from '@/shared/ui/input';
 import { SignupFormValues } from '../signup.types';
 
 export default function PasswordField() {
-  const { control, getFieldState } = useFormContext<SignupFormValues>();
-  const { error } = getFieldState('password');
+  const { control, formState } = useFormContext<SignupFormValues>();
+  const error = formState.errors.password;
 
   return (
     <FormField
@@ -33,7 +33,7 @@ export default function PasswordField() {
               placeholder="비밀번호를 입력해주세요."
             />
           </FormControl>
-          {error && <FieldError>{error.message}</FieldError>}
+          <FieldError errors={error ? [error] : undefined} />
         </FormItem>
       )}
     />

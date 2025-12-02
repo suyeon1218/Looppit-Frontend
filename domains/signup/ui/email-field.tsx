@@ -8,8 +8,8 @@ import { Input } from '@/shared/ui/input';
 import { SignupFormValues } from '../signup.types';
 
 export default function EmailField() {
-  const { control, getFieldState } = useFormContext<SignupFormValues>();
-  const { error } = getFieldState('email');
+  const { control, formState } = useFormContext<SignupFormValues>();
+  const error = formState.errors.email;
 
   return (
     <FormField
@@ -24,7 +24,7 @@ export default function EmailField() {
               <Button variant="outline">인증하기</Button>
             </div>
           </FormControl>
-          {error && <FieldError>{error.message}</FieldError>}
+          <FieldError errors={error ? [error] : undefined} />
         </FormItem>
       )}
     />

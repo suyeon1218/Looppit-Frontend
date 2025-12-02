@@ -15,6 +15,7 @@ import PasswordField from './password-field';
 export default function SignupForm() {
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupFormSchema),
+    mode: 'onChange',
     defaultValues: {
       email: '',
       password: '',
