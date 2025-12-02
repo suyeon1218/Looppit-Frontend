@@ -1,5 +1,6 @@
-import { NextResponse, NextRequest } from "next/server";
-import { guardRules } from "@/shared/proxy/proxy.guard";
+import { NextResponse, NextRequest } from 'next/server';
+
+import { guardRules } from '@/shared/proxy/proxy.guard';
 
 const proxy = (request: NextRequest) => {
   const matchedRule = guardRules.find((rule) => rule.when(request));
@@ -12,7 +13,7 @@ const proxy = (request: NextRequest) => {
 
 export const config = {
   matcher:
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
 };
 
 export default proxy;

@@ -1,8 +1,8 @@
-"use server";
+'use server';
 
-import { NextRequest } from "next/server";
+import { NextRequest } from 'next/server';
 
-export const GUEST_ROUTES = ["/login", "/signup"] as const;
+export const GUEST_ROUTES = ['/login', '/signup'] as const;
 
 export const isGuestRoute = (request: NextRequest) => {
   const { pathname } = request.nextUrl;
@@ -10,7 +10,7 @@ export const isGuestRoute = (request: NextRequest) => {
 };
 
 export const hasSession = (request: NextRequest) => {
-  const accessToken = request.cookies.get("accessToken");
+  const accessToken = request.cookies.get('accessToken');
   return !!accessToken;
 };
 
