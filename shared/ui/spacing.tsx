@@ -16,7 +16,7 @@ function Spacing({
   const style =
     direction === 'vertical' ? { height: `${size}px` } : { width: `${size}px` };
 
-  return <div className={cn('flex-0', className)} style={style} {...props} />;
+  return <div className={cn('shrink-0', className)} style={style} {...props} />;
 }
 
 export { Spacing };
