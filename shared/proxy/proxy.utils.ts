@@ -2,7 +2,7 @@
 
 import { NextRequest } from 'next/server';
 
-export const GUEST_ROUTES = ['/login', '/signup'] as const;
+export const GUEST_ROUTES = ['/landing', '/login', '/signup'] as const;
 
 export const isGuestRoute = (request: NextRequest) => {
   const { pathname } = request.nextUrl;

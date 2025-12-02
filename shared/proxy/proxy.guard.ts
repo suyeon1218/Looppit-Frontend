@@ -16,6 +16,6 @@ export const guardRules: GuardRule[] = [
   },
   {
     when: (req: NextRequest) => isProtectedRoute(req) && !hasSession(req),
-    redirect: '/login',
+    redirect: '/landing',
   },
 ];
