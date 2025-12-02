@@ -3,17 +3,11 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Button } from '@/shared/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/shared/ui/form';
-import { Input } from '@/shared/ui/input';
+import { Form } from '@/shared/ui/form';
 
 import { loginFormSchema, LoginFormValues } from '../login.types';
+import EmailField from './email-field';
+import PasswordField from './password-field';
 
 export default function LoginForm() {
   const form = useForm<LoginFormValues>({
@@ -34,36 +28,8 @@ export default function LoginForm() {
         className="flex flex-col gap-4"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-2">
-              <FormLabel>이메일</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="이메일을 입력해주세요." />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-2">
-              <FormLabel>비밀번호</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  type="password"
-                  placeholder="비밀번호를 입력해주세요."
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <EmailField />
+        <PasswordField />
         <div className="flex flex-col items-center justify-center gap-2">
           <Button type="submit" className="w-full">
             로그인
