@@ -22,7 +22,6 @@ const eslintConfig = defineConfig([
       '@tanstack/query/no-unstable-deps': 'error',
     },
     rules: {
-      'prettier/prettier': 'error',
       '@typescript-eslint/no-unused-expressions': 'error',
       'import/order': [
         'error',
