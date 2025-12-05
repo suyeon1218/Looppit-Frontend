@@ -6,7 +6,7 @@ import { Button } from '@/shared/ui/button';
 import { Form } from '@/shared/ui/form';
 import { Spacing } from '@/shared/ui/spacing';
 
-import { signupFormSchema, SignupFormValues } from '../signup.types';
+import { signupFormSchema, SignupFormValues } from '@/domains/signup/types';
 import EmailConfirmField from './email-confirm-field';
 import EmailField from './email-field';
 import PasswordConfirmField from './password-confirm-field';

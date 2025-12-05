@@ -10,7 +10,7 @@ import {
 } from '@/shared/ui/form';
 import { Input } from '@/shared/ui/input';
 
-import { SignupFormValues } from '../signup.types';
+import { SignupFormValues } from '@/domains/signup/types';
 
 export default function PasswordField() {
   const { control, formState } = useFormContext<SignupFormValues>();

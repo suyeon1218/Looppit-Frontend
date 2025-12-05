@@ -5,7 +5,7 @@ import { FieldError } from '@/shared/ui/field';
 import { FormControl, FormField, FormItem, FormLabel } from '@/shared/ui/form';
 import { Input } from '@/shared/ui/input';
 
-import { SignupFormValues } from '../signup.types';
+import { SignupFormValues } from '@/domains/signup/types';
 
 export default function EmailField() {
   const { control, formState } = useFormContext<SignupFormValues>();
