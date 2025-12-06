@@ -1,1 +1,1 @@
-export * from './error.guard';
+export * from './api-error';
