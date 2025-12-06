@@ -7,3 +7,9 @@ export type SignupResponse = {
   email: string;
   password: string;
 };
+
+export type VerifyEmailRequest = {
+  email: string;
+};
+
+export type VerifyEmailResponse = unknown;
