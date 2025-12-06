@@ -2,16 +2,16 @@ import { useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { useSignup } from '@/domains/signup/api';
+import { signupFormSchema, SignupFormValues } from '@/domains/signup/types';
 import { Button } from '@/shared/ui/button';
 import { Form } from '@/shared/ui/form';
 import { Spacing } from '@/shared/ui/spacing';
 
-import { signupFormSchema, SignupFormValues } from '@/domains/signup/types';
 import EmailConfirmField from './email-confirm-field';
 import EmailField from './email-field';
 import PasswordConfirmField from './password-confirm-field';
 import PasswordField from './password-field';
-import { useSignup } from '../api/api.query';
 
 export default function SignupForm() {
   const form = useForm<SignupFormValues>({
