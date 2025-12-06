@@ -1,6 +1,8 @@
 import { useFormContext } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 import { SignupFormValues } from '@/domains/signup/types';
+import { isApiError } from '@/shared/guard';
 import { Button } from '@/shared/ui/button';
 import { FieldError } from '@/shared/ui/field';
 import { FormControl, FormField, FormItem, FormLabel } from '@/shared/ui/form';
@@ -10,14 +12,22 @@ import { useEmailSendMutation } from '../hooks/use-email-verification';
 
 export default function EmailField() {
   const { control, formState, getValues } = useFormContext<SignupFormValues>();
-  const { mutate: sendEmail, isPending } = useEmailSendMutation();
+  const { mutateAsync: sendEmail, isPending } = useEmailSendMutation();
   const error = formState.errors.email;
 
-  const handleVerifyEmail = () => {
+  const handleVerifyEmail = async () => {
     if (isPending || error !== undefined) return;
 
-    const email = getValues('email');
-    sendEmail({ email });
+    try {
+      const email = getValues('email');
+      await sendEmail({ email });
+
+      toast.success('이메일 인증 메일이 발송되었습니다.');
+    } catch (error) {
+      if (isApiError(error)) {
+        toast.error(error.message);
+      }
+    }
   };
 
   return (
