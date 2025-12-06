@@ -1,9 +1,11 @@
 import { useForm } from 'react-hook-form';
+import toast, { Toaster } from 'react-hot-toast';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useSignup } from '@/domains/signup/api';
 import { signupFormSchema, SignupFormValues } from '@/domains/signup/types';
+import { isApiError } from '@/shared/guard';
 import { Button } from '@/shared/ui/button';
 import { Form } from '@/shared/ui/form';
 import { Spacing } from '@/shared/ui/spacing';
@@ -25,7 +27,13 @@ export default function SignupForm() {
   const { mutateAsync: signup, isPending } = useSignup();
 
   const onSubmit = async (data: SignupFormValues) => {
-    await signup(data);
+    try {
+      const response = await signup(data);
+    } catch (error) {
+      if (isApiError(error)) {
+        toast.error(error?.message);
+      }
+    }
   };
 
   return (
@@ -48,6 +56,7 @@ export default function SignupForm() {
           >
             {isPending ? '회원가입 중...' : '회원가입'}
           </Button>
+          <Toaster position="top-center" />
         </div>
       </form>
     </Form>
