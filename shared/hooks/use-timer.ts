@@ -11,6 +11,8 @@ export function useTimer(
   format: 'mm:ss' | 'ss' = 'mm:ss',
 ) {
   const [time, setTime] = useState<number>(initialTime);
+  const [isRunning, setIsRunning] = useState<boolean>(false);
+
   const timeRef = useRef<number>(time);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -24,24 +26,29 @@ export function useTimer(
         if (timerRef.current) {
           clearInterval(timerRef.current);
         }
+        setIsRunning(false);
         return;
       }
 
+      timeRef.current -= 1;
       setTime((prev) => prev - 1);
-      timeRef.current = timeRef.current - 1;
     }, 1000);
+    setIsRunning(true);
   }, []);
 
   const endTimer = useCallback(() => {
     if (timerRef.current) {
       clearInterval(timerRef.current);
+      setIsRunning(false);
       setTime(initialTime);
+
       timeRef.current = initialTime;
     }
   }, [initialTime]);
 
   return {
     time,
+    isRunning,
     formattedTime: formatTime(time, format),
     startTimer,
     endTimer,
