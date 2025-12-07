@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useSignup } from '@/domains/signup/hooks';
 import { signupFormSchema, SignupFormValues } from '@/domains/signup/types';
 import { isApiError } from '@/shared/guard';
+import { useTimer } from '@/shared/hooks';
 import { Button } from '@/shared/ui/button';
 import { Form } from '@/shared/ui/form';
 import { Spacing } from '@/shared/ui/spacing';
@@ -15,7 +16,6 @@ import EmailConfirmField from './email-confirm-field';
 import EmailField from './email-field';
 import PasswordConfirmField from './password-confirm-field';
 import PasswordField from './password-field';
-import { useEmailSendMutation } from '../hooks/use-email-verification';
 
 export default function SignupForm() {
   const form = useForm<SignupFormValues>({
@@ -27,11 +27,10 @@ export default function SignupForm() {
     },
   });
   const { mutateAsync: signup, isPending } = useSignup();
-  const { isSuccess: isEmailSendSuccess } = useEmailSendMutation();
+  const { startTimer, endTimer, formattedTime } = useTimer(300);
 
   const [isPasswordConfirmed, setIsPasswordConfirmed] = useState(false);
-  const submitDisabled =
-    isPending || !isEmailSendSuccess || !isPasswordConfirmed;
+  const submitDisabled = isPending || !isPasswordConfirmed;
 
   const onSubmit = async (data: SignupFormValues) => {
     if (submitDisabled) return;
@@ -51,8 +50,11 @@ export default function SignupForm() {
         className="flex flex-col gap-4"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <EmailField />
-        {isEmailSendSuccess && <EmailConfirmField timer="5:00" />}
+        <EmailField onEmailSendSuccess={() => startTimer()} />
+        <EmailConfirmField
+          time={formattedTime}
+          onEmailCertificationSuccess={() => endTimer()}
+        />
         <PasswordField />
         <PasswordConfirmField
           isPasswordConfirmed={isPasswordConfirmed}

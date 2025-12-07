@@ -9,21 +9,31 @@ import { FieldError } from '@/shared/ui/field';
 import { FormControl, FormField, FormItem, FormLabel } from '@/shared/ui/form';
 import { Input } from '@/shared/ui/input';
 
+import { useEmailCertificationMutation } from '../hooks/use-email-certification';
 import { useEmailSendMutation } from '../hooks/use-email-verification';
 
-export default function EmailField() {
+interface EmailFieldProps {
+  onEmailSendSuccess: () => void;
+}
+
+export default function EmailField({ onEmailSendSuccess }: EmailFieldProps) {
   const { control, formState, getValues } = useFormContext<SignupFormValues>();
   const {
     mutateAsync: sendEmail,
     isPending,
     isSuccess: isEmailSendSuccess,
   } = useEmailSendMutation();
+  const { isSuccess: isEmailCertificationSuccess } =
+    useEmailCertificationMutation();
   const { startTimer, isRunning: isTimerRunning } = useTimer(60);
 
   const emailValue = getValues('email');
   const error = formState.errors.email;
   const isCertificationDisabled =
-    emailValue === '' || isPending || error !== undefined;
+    emailValue === '' ||
+    isPending ||
+    error !== undefined ||
+    isEmailCertificationSuccess;
 
   const handleVerifyEmail = async () => {
     if (isCertificationDisabled) return;
@@ -37,6 +47,7 @@ export default function EmailField() {
       await sendEmail({ email: emailValue });
 
       toast.success('이메일 인증 메일이 발송되었습니다.');
+      onEmailSendSuccess();
     } catch (error) {
       if (isApiError(error)) {
         toast.error(error.message);

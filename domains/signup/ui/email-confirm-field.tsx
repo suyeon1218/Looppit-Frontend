@@ -17,11 +17,13 @@ import { useEmailCertificationMutation } from '../hooks/use-email-certification'
 import { SignupFormValues } from '../types';
 
 interface EmailConfirmFieldProps {
-  timer: string;
+  time: string;
+  onEmailCertificationSuccess: () => void;
 }
 
 export default function EmailConfirmField({
-  timer = '5:00',
+  time,
+  onEmailCertificationSuccess,
 }: EmailConfirmFieldProps) {
   const [code, setCode] = useState('');
   const { getValues } = useFormContext<SignupFormValues>();
@@ -30,7 +32,6 @@ export default function EmailConfirmField({
     isPending,
     error,
   } = useEmailCertificationMutation();
-
   const isDisabled = isPending || code.length !== 6;
 
   const handleConfirm = async () => {
@@ -41,6 +42,7 @@ export default function EmailConfirmField({
       await certifyEmail({ email, code });
 
       toast.success('이메일 인증이 완료되었습니다.');
+      onEmailCertificationSuccess();
     } catch (error) {
       if (isApiError(error)) {
         toast.error(error.message);
@@ -61,7 +63,7 @@ export default function EmailConfirmField({
             />
             <InputGroupAddon align="inline-end">
               <InputGroupText className="text-xs text-gray-500">
-                {timer}
+                {time}
               </InputGroupText>
             </InputGroupAddon>
           </InputGroup>
