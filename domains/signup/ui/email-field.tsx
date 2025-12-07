@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 
 import { SignupFormValues } from '@/domains/signup/types';
 import { isApiError } from '@/shared/guard';
+import { useTimer } from '@/shared/hooks';
 import { Button } from '@/shared/ui/button';
 import { FieldError } from '@/shared/ui/field';
 import { FormControl, FormField, FormItem, FormLabel } from '@/shared/ui/form';
@@ -15,8 +16,10 @@ export default function EmailField() {
   const {
     mutateAsync: sendEmail,
     isPending,
-    isSuccess,
+    isSuccess: isEmailSendSuccess,
   } = useEmailSendMutation();
+  const { startTimer, isRunning: isTimerRunning } = useTimer(60);
+
   const emailValue = getValues('email');
   const error = formState.errors.email;
   const isCertificationDisabled =
@@ -24,8 +27,13 @@ export default function EmailField() {
 
   const handleVerifyEmail = async () => {
     if (isCertificationDisabled) return;
+    if (isTimerRunning) {
+      toast.error('이메일 재요청은 1분 후에 가능합니다.');
+      return;
+    }
 
     try {
+      startTimer();
       await sendEmail({ email: emailValue });
 
       toast.success('이메일 인증 메일이 발송되었습니다.');
@@ -52,7 +60,7 @@ export default function EmailField() {
                 variant="outline"
                 onClick={handleVerifyEmail}
               >
-                {isSuccess ? '재발송' : '인증하기'}
+                {isEmailSendSuccess ? '재발송' : '인증하기'}
               </Button>
             </div>
           </FormControl>
