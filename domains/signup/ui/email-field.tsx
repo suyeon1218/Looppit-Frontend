@@ -9,8 +9,7 @@ import { FieldError } from '@/shared/ui/field';
 import { FormControl, FormField, FormItem, FormLabel } from '@/shared/ui/form';
 import { Input } from '@/shared/ui/input';
 
-import { useEmailCertificationMutation } from '../hooks/use-email-certification';
-import { useEmailSendMutation } from '../hooks/use-email-verification';
+import { useEmailCertificationMutation, useEmailSendMutation } from '../hooks';
 
 interface EmailFieldProps {
   onEmailSendSuccess: () => void;

@@ -13,7 +13,7 @@ import {
   InputGroupText,
 } from '@/shared/ui/input-group';
 
-import { useEmailCertificationMutation } from '../hooks/use-email-certification';
+import { useEmailCertificationMutation } from '../hooks';
 import { SignupFormValues } from '../types';
 
 interface EmailConfirmFieldProps {
