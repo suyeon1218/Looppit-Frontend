@@ -8,14 +8,12 @@ import { Form } from '@/shared/ui/form';
 import { loginFormSchema, LoginFormValues } from '../login.types';
 import EmailField from './email-field';
 import PasswordField from './password-field';
+import { LOGIN_DEFAULT_VALUES } from '../constants';
 
 export default function LoginForm() {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-    },
+    defaultValues: LOGIN_DEFAULT_VALUES,
   });
 
   const onSubmit = (data: LoginFormValues) => {
