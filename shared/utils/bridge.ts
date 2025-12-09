@@ -1,3 +1,4 @@
+import { IS_CLIENT } from '@/shared/constants';
 import type {
   BridgeRequestType,
   BridgeRequestPayload,
@@ -14,7 +15,7 @@ export async function bridgeRequest<T = unknown>(
   type: BridgeRequestType,
   payload?: BridgeRequestPayload,
 ): Promise<BridgeResponse<T>> {
-  if (typeof window === 'undefined' || !window.bridge) {
+  if (typeof !IS_CLIENT || !window.bridge) {
     throw new Error('Bridge is not available');
   }
 
