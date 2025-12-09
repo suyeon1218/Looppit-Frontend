@@ -1,9 +1,14 @@
 import { apiClient } from '@/shared/api/api.client';
 
-import { LoginRequest, LoginResponse } from '../types/api';
+import { LoginRequest } from '../types/api';
 
 export const postLoginRequest = async (data: LoginRequest) => {
-  const response = await apiClient.post<LoginResponse>('/user/login', data);
+  const formData = new FormData();
+  formData.append('email', data.email);
+  formData.append('password', data.password);
+  const response = await apiClient.post('/user/login', formData, {
+    'Content-Type': 'multipart/form-data',
+  });
 
   return response.data;
 };
