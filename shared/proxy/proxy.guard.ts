@@ -1,7 +1,8 @@
-"use server";
+'use server';
 
-import { NextRequest } from "next/server";
-import { isGuestRoute, hasSession, isProtectedRoute } from "./proxy.utils";
+import { NextRequest } from 'next/server';
+
+import { isGuestRoute, hasSession, isProtectedRoute } from './proxy.utils';
 
 type GuardRule = {
   when: (req: NextRequest) => boolean;
@@ -11,10 +12,10 @@ type GuardRule = {
 export const guardRules: GuardRule[] = [
   {
     when: (req: NextRequest) => isGuestRoute(req) && hasSession(req),
-    redirect: "/",
+    redirect: '/',
   },
   {
     when: (req: NextRequest) => isProtectedRoute(req) && !hasSession(req),
-    redirect: "/login",
+    redirect: '/landing',
   },
 ];
