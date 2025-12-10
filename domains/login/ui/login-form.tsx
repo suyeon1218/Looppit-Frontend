@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { isApiError } from '@/shared/guard';
+import { useSetTokenAtom } from '@/shared/store/auth.atom';
 import { Button } from '@/shared/ui/button';
 import { Form } from '@/shared/ui/form';
 
@@ -23,6 +24,7 @@ export default function LoginForm() {
   });
   const { mutateAsync: loginMutation, isPending: isLoginPending } = useLogin();
   const submitDisabled = isLoginPending;
+  const setTokenAtom = useSetTokenAtom();
 
   const handleSubmitForm = async (data: LoginFormValues) => {
     try {
@@ -32,7 +34,8 @@ export default function LoginForm() {
 
       const response = await loginMutation(formData);
 
-      if (response) {
+      if (response && 'accessToken' in response) {
+        setTokenAtom(response.accessToken);
         router.push('/');
       }
     } catch (error) {
