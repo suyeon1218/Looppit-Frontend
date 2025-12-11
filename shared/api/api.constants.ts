@@ -1,6 +1,8 @@
+import { getProjectConfig } from '../utils';
+
 import type { ErrorMessageMap } from './api.types';
 
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '';
+export const { apiEndPoint: API_BASE_URL } = getProjectConfig();
 export const API_TIMEOUT = 5000;
 
 export const ERROR_MESSAGE_MAP: ErrorMessageMap = {
