@@ -1,12 +1,7 @@
 import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-
-import { useRouter } from 'next/navigation';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { isApiError } from '@/shared/guard';
-import { useSetTokenAtom } from '@/shared/store/auth.atom';
 import { Button } from '@/shared/ui/button';
 import { Form } from '@/shared/ui/form';
 
@@ -17,32 +12,19 @@ import { LOGIN_DEFAULT_VALUES } from '../constants';
 import { useLogin } from '../hooks';
 
 export default function LoginForm() {
-  const router = useRouter();
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: LOGIN_DEFAULT_VALUES,
   });
-  const { mutateAsync: loginMutation, isPending: isLoginPending } = useLogin();
+  const { mutate: loginMutation, isPending: isLoginPending } = useLogin();
   const submitDisabled = isLoginPending;
-  const setTokenAtom = useSetTokenAtom();
 
   const handleSubmitForm = async (data: LoginFormValues) => {
-    try {
-      const formData = new FormData();
-      formData.append('email', data.email);
-      formData.append('password', data.password);
+    const formData = new FormData();
+    formData.append('email', data.email);
+    formData.append('password', data.password);
 
-      const response = await loginMutation(formData);
-
-      if (response && 'accessToken' in response) {
-        setTokenAtom(response.accessToken);
-        router.push('/');
-      }
-    } catch (error) {
-      if (isApiError(error)) {
-        toast.error(error.message);
-      }
-    }
+    loginMutation(formData);
   };
 
   return (
