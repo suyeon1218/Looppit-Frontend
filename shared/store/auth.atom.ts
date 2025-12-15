@@ -1,4 +1,6 @@
-import { atom, useAtomValue, useSetAtom } from "jotai";
+'use client';
+
+import { atom, useAtomValue, useSetAtom } from 'jotai';
 
 export const tokenAtom = atom<string | null>(null);
 
