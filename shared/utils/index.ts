@@ -5,3 +5,4 @@ export * from './type';
 export * from './bridge';
 export * from './logger';
 export * from './platform';
+export * from './error';

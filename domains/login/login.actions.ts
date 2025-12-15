@@ -5,7 +5,11 @@ import {
   SOCIAL_PROVIDER_KAKAO,
   SOCIAL_PROVIDER_NAVER,
 } from '@/domains/auth';
-import { bridgeRequest, logger, platformHandler } from '@/shared/utils';
+import {
+  bridgeRequest,
+  getErrorMessage,
+  platformHandler,
+} from '@/shared/utils';
 
 /**
  * Auth 도메인 브릿지 액션 상수
@@ -23,7 +27,11 @@ export const handleGoogleLogin = async () => {
   try {
     await signIn(SOCIAL_PROVIDER_GOOGLE, NEXT_AUTH_OPTIONS);
   } catch (error) {
-    logger.log('@@ 네트워크나 기타 알 수 없는 에러', error);
+    const errorMessage = getErrorMessage(
+      error,
+      '네트워크나 기타 알 수 없는 에러가 발생했습니다.',
+    );
+    alert(errorMessage);
   }
 };
 
@@ -45,7 +53,11 @@ export const handleKakaoLogin = async () => {
       })
       .execute();
   } catch (error) {
-    logger.log('@@ 네트워크나 기타 알 수 없는 에러', error);
+    const errorMessage = getErrorMessage(
+      error,
+      '네트워크나 기타 알 수 없는 에러가 발생했습니다.',
+    );
+    alert(errorMessage);
   }
 };
 
@@ -57,6 +69,10 @@ export const handleNaverLogin = async () => {
   try {
     await signIn(SOCIAL_PROVIDER_NAVER, NEXT_AUTH_OPTIONS);
   } catch (error) {
-    logger.log('@@ 네트워크나 기타 알 수 없는 에러', error);
+    const errorMessage = getErrorMessage(
+      error,
+      '네트워크나 기타 알 수 없는 에러가 발생했습니다.',
+    );
+    alert(errorMessage);
   }
 };
