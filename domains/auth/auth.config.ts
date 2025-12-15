@@ -35,10 +35,7 @@ export const authConfig = {
 
       if (!email || !providerId || !provider) return false;
 
-      const baseUrl = ENVS.NEXT_AUTH.BASE_URL;
-      if (!baseUrl) return false;
-
-      return buildUrl(baseUrl, '/api/auth/oauth/exchange', {
+      return buildUrl(ENVS.NEXT_AUTH.BASE_URL!, '/api/auth/oauth/exchange', {
         email,
         providerId,
         provider,

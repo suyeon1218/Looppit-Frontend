@@ -6,7 +6,7 @@ import { API_TIMEOUT } from '../api.constants';
 
 export const initAxiosInstance = (): AxiosInstance => {
   return axios.create({
-    baseURL: ENVS.BASE_URL,
+    baseURL: ENVS.API_BASE_URL,
     timeout: API_TIMEOUT,
     withCredentials: true,
     headers: {

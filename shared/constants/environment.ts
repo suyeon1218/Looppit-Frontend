@@ -18,7 +18,7 @@ const OAUTH = {
 };
 
 const URL = {
-  BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
 };
 
 export const ENVS = {
