@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+import { SocialProvider } from '@/domains/auth';
 import { ExtendedZodErrorMessageMap } from '@/shared/types';
 
 import { LOGIN_ERROR_MESSAGES } from './login.constants';
@@ -22,7 +23,4 @@ export type LoginErrorMessageValues = Record<
   Partial<ExtendedZodErrorMessageMap>
 >;
 
-/**
- * 소셜 로그인 제공자 타입
- */
-export type SocialProvider = 'google' | 'kakao' | 'naver';
+export type { SocialProvider };

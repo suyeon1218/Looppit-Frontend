@@ -1,5 +1,10 @@
 import { signIn } from 'next-auth/react';
 
+import {
+  SOCIAL_PROVIDER_GOOGLE,
+  SOCIAL_PROVIDER_KAKAO,
+  SOCIAL_PROVIDER_NAVER,
+} from '@/domains/auth';
 import { bridgeRequest, logger, platformHandler } from '@/shared/utils';
 
 /**
@@ -16,7 +21,7 @@ const NEXT_AUTH_OPTIONS = {
  */
 export const handleGoogleLogin = async () => {
   try {
-    await signIn('google', NEXT_AUTH_OPTIONS);
+    await signIn(SOCIAL_PROVIDER_GOOGLE, NEXT_AUTH_OPTIONS);
   } catch (error) {
     logger.log('@@ 네트워크나 기타 알 수 없는 에러', error);
   }
@@ -36,7 +41,7 @@ export const handleKakaoLogin = async () => {
         });
       })
       .web(async () => {
-        await signIn('kakao', NEXT_AUTH_OPTIONS);
+        await signIn(SOCIAL_PROVIDER_KAKAO, NEXT_AUTH_OPTIONS);
       })
       .execute();
   } catch (error) {
@@ -50,7 +55,7 @@ export const handleKakaoLogin = async () => {
  */
 export const handleNaverLogin = async () => {
   try {
-    await signIn('naver', NEXT_AUTH_OPTIONS);
+    await signIn(SOCIAL_PROVIDER_NAVER, NEXT_AUTH_OPTIONS);
   } catch (error) {
     logger.log('@@ 네트워크나 기타 알 수 없는 에러', error);
   }

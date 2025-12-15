@@ -1,3 +1,9 @@
+import { SOCIAL_PROVIDERS } from '@/domains/auth/auth.types';
+
+export const SOCIAL_PROVIDER_GOOGLE = SOCIAL_PROVIDERS[0];
+export const SOCIAL_PROVIDER_KAKAO = SOCIAL_PROVIDERS[1];
+export const SOCIAL_PROVIDER_NAVER = SOCIAL_PROVIDERS[2];
+
 /**
  * OAuth 에러 코드 상수
  *
@@ -23,4 +29,3 @@ export const OAUTH_ERROR_CODES = {
 
 export type OAuthErrorCode =
   (typeof OAUTH_ERROR_CODES)[keyof typeof OAUTH_ERROR_CODES];
-
