@@ -15,7 +15,7 @@ export async function bridgeRequest<T = unknown>(
   type: BridgeRequestType,
   payload?: BridgeRequestPayload,
 ): Promise<BridgeResponse<T>> {
-  if (typeof !IS_CLIENT || !window.bridge) {
+  if (!IS_CLIENT || !window.bridge) {
     throw new Error('Bridge is not available');
   }
 
