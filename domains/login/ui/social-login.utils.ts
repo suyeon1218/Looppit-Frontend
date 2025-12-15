@@ -1,4 +1,4 @@
-type SocialProvider = 'google' | 'kakao' | 'naver';
+import { SocialProvider } from '../login.types';
 
 export const getSocialProviderStyles = (provider: SocialProvider): string => {
   switch (provider) {
@@ -12,4 +12,3 @@ export const getSocialProviderStyles = (provider: SocialProvider): string => {
       return '';
   }
 };
-

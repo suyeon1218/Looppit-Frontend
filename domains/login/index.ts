@@ -1,2 +1,6 @@
 export { default as LoginScreen } from './login-screen';
-export { handleKakaoLogin } from './login.actions';
+export {
+  handleGoogleLogin,
+  handleKakaoLogin,
+  handleNaverLogin,
+} from './login.actions';

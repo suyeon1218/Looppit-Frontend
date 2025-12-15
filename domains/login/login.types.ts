@@ -21,3 +21,8 @@ export type LoginErrorMessageValues = Record<
   LoginErrorMessageKeys,
   Partial<ExtendedZodErrorMessageMap>
 >;
+
+/**
+ * 소셜 로그인 제공자 타입
+ */
+export type SocialProvider = 'google' | 'kakao' | 'naver';

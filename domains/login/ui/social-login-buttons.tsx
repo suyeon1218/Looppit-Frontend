@@ -1,18 +1,26 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
-
 import { Button } from '@/shared/ui/button';
 import { Separator } from '@/shared/ui/separator';
 
+import {
+  handleGoogleLogin,
+  handleKakaoLogin,
+  handleNaverLogin,
+} from '../login.actions';
+import { SocialProvider } from '../login.types';
 import { getSocialProviderStyles } from './social-login.utils';
-
-type SocialProvider = 'google' | 'kakao' | 'naver';
 
 interface SocialLoginButtonProps {
   provider: SocialProvider;
   label: string;
 }
+
+const SOCIAL_LOGIN_HANDLERS: Record<SocialProvider, () => Promise<void>> = {
+  google: handleGoogleLogin,
+  kakao: handleKakaoLogin,
+  naver: handleNaverLogin,
+};
 
 export default function SocialLoginButtons() {
   return (
@@ -34,9 +42,7 @@ export default function SocialLoginButtons() {
 
 const SocialLoginButton = ({ provider, label }: SocialLoginButtonProps) => {
   const handleSocialLogin = async () => {
-    await signIn(provider, {
-      callbackUrl: '/',
-    });
+    await SOCIAL_LOGIN_HANDLERS[provider]();
   };
 
   return (
