@@ -43,6 +43,8 @@ export function useOAuthError() {
       'error',
     );
 
-    router.replace(newUrl);
+    setTimeout(() => {
+      router.replace(newUrl);
+    }, 0);
   }, [searchParams, pathname, router]);
 }
