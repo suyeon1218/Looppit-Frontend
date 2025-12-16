@@ -1,20 +1,20 @@
 'use client';
 
+import { SocialProvider } from '@/domains/auth';
 import {
   SOCIAL_PROVIDER_GOOGLE,
   SOCIAL_PROVIDER_KAKAO,
   SOCIAL_PROVIDER_NAVER,
-  SocialProvider,
-} from '@/domains/auth';
-import { Button } from '@/shared/ui/button';
-import { Separator } from '@/shared/ui/separator';
-
+} from '@/domains/auth/oauth';
 import {
   handleGoogleLogin,
   handleKakaoLogin,
   handleNaverLogin,
-} from '../login.actions';
-import { getSocialProviderStyles } from './social-login.utils';
+} from '@/domains/auth/oauth';
+import { Button } from '@/shared/ui/button';
+import { Separator } from '@/shared/ui/separator';
+
+import { getSocialProviderStyles } from '../social-login.utils';
 
 interface SocialLoginButtonProps {
   provider: SocialProvider;

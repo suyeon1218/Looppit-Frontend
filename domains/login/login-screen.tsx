@@ -1,9 +1,9 @@
 'use client';
 
+import { useOAuthError } from '@/domains/auth/oauth';
 import SocialLoginButtons from '@/domains/login/ui/social-login-buttons';
 import { Spacing } from '@/shared/ui/spacing';
 
-import { useOAuthError } from './hooks';
 import { LoginForm } from './ui';
 
 export default function LoginScreen() {

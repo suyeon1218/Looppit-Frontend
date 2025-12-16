@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { OAUTH_ERROR_CODES } from '@/domains/auth/oauth.constants';
-import { classifyOAuthError } from '@/domains/auth/oauth.error';
-import { exchangeOAuthToken } from '@/domains/auth/oauth.service';
-import { parseOAuthParams } from '@/domains/auth/oauth.utils';
+import {
+  OAUTH_ERROR_CODES,
+  classifyOAuthError,
+  exchangeOAuthToken,
+  parseOAuthParams,
+} from '@/domains/auth/oauth';
 
 /**
  * OAuth 토큰 교환 API Route

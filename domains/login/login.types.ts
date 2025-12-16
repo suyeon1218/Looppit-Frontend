@@ -24,12 +24,3 @@ export type LoginErrorMessageValues = Record<
 >;
 
 export type { SocialProvider };
-
-export type KakaoLoginResponse = {
-  success: true;
-  data: {
-    providerId: number;
-    email: string;
-  };
-  error?: string;
-};
