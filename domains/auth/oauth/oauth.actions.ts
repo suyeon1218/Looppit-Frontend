@@ -1,35 +1,25 @@
 import { signIn } from 'next-auth/react';
 
 import {
+  getKakaoErrorMessage,
+  handleOauthError,
+} from '@/domains/auth/oauth/oauth.utils';
+import { bridgeRequest, buildUrl, platformHandler } from '@/shared/utils';
+
+import { BRIDGE_REQUEST_OPTIONS, KAKAO_ERROR_CODE } from './kakao.constants';
+import {
   SOCIAL_PROVIDER_GOOGLE,
   SOCIAL_PROVIDER_KAKAO,
   SOCIAL_PROVIDER_NAVER,
-} from '@/domains/auth';
-import {
-  bridgeRequest,
-  buildUrl,
-  getErrorMessage,
-  platformHandler,
-} from '@/shared/utils';
+} from './oauth.constants';
 
-import {
-  ACTION_TYPE,
-  BRIDGE_REQUEST_OPTIONS,
-  DEFAULT_ERROR_MESSAGE,
-  KAKAO_ERROR_CODE,
-  NEXT_AUTH_OPTIONS,
-} from './constants';
-import { getKakaoErrorMessage } from './ui/social-login.utils';
+import type { KakaoLoginResponse } from './oauth.types';
 
-import type { KakaoLoginResponse } from './login.types';
+export const ACTION_TYPE = 'USER_ACTION' as const;
 
-/**
- * 에러를 처리하고 사용자에게 알림을 표시합니다.
- */
-const handleError = (error: unknown) => {
-  const errorMessage = getErrorMessage(error, DEFAULT_ERROR_MESSAGE);
-  alert(errorMessage);
-};
+export const NEXT_AUTH_OPTIONS = {
+  callbackUrl: '/',
+} as const;
 
 /**
  * NextAuth를 통한 소셜 로그인을 처리합니다.
@@ -77,7 +67,7 @@ export const handleGoogleLogin = async () => {
   try {
     await signInWithProvider(SOCIAL_PROVIDER_GOOGLE);
   } catch (error) {
-    handleError(error);
+    handleOauthError(error);
   }
 };
 
@@ -93,7 +83,7 @@ export const handleKakaoLogin = async () => {
       .web(() => signInWithProvider(SOCIAL_PROVIDER_KAKAO))
       .execute();
   } catch (error) {
-    handleError(error);
+    handleOauthError(error);
   }
 };
 
@@ -105,6 +95,6 @@ export const handleNaverLogin = async () => {
   try {
     await signInWithProvider(SOCIAL_PROVIDER_NAVER);
   } catch (error) {
-    handleError(error);
+    handleOauthError(error);
   }
 };

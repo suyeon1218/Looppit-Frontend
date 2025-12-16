@@ -4,12 +4,10 @@ import { useEffect } from 'react';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import {
-  OAUTH_ERROR_CODES,
-  OAuthErrorCode,
-} from '@/domains/auth/oauth.constants';
-import { getOAuthErrorMessage } from '@/domains/auth/oauth.error';
 import { createTypeValidator, removeQueryParams } from '@/shared/utils';
+
+import { OAUTH_ERROR_CODES, OAuthErrorCode } from './oauth.constants';
+import { getOAuthErrorMessage } from './oauth.error';
 
 const isValid = createTypeValidator<OAuthErrorCode>(
   Object.values(OAUTH_ERROR_CODES),

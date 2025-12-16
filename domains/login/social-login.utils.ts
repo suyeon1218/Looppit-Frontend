@@ -1,14 +1,9 @@
+import { SocialProvider } from '@/domains/auth';
 import {
   SOCIAL_PROVIDER_GOOGLE,
   SOCIAL_PROVIDER_KAKAO,
   SOCIAL_PROVIDER_NAVER,
-  SocialProvider,
-} from '@/domains/auth';
-
-import {
-  KAKAO_DEFAULT_ERROR_MESSAGE,
-  KAKAO_ERROR_MESSAGES,
-} from '../constants/kakao.constants';
+} from '@/domains/auth/oauth';
 
 export const getSocialProviderStyles = (provider: SocialProvider): string => {
   switch (provider) {
@@ -21,8 +16,4 @@ export const getSocialProviderStyles = (provider: SocialProvider): string => {
     default:
       return '';
   }
-};
-
-export const getKakaoErrorMessage = (error: string): string => {
-  return KAKAO_ERROR_MESSAGES[error] ?? KAKAO_DEFAULT_ERROR_MESSAGE;
 };
