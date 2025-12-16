@@ -1,7 +1,7 @@
 import { PROJECT_ENV } from '@/shared/constants';
 
 const validateEnv = (): typeof PROJECT_ENV => {
-  const missingKey = Object.entries(PROJECT_ENV).some(
+  const missingKey = Object.entries(PROJECT_ENV).find(
     ([, value]) => value === undefined,
   );
 
