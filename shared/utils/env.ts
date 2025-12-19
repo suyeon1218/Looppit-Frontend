@@ -12,12 +12,4 @@ const validateEnv = (): typeof PROJECT_ENV => {
   return PROJECT_ENV;
 };
 
-const VALIDATED_PROJECT_ENV = validateEnv();
-
-/**
- * 프로젝트 설정 정보를 반환하는 유틸리티 함수
- * @returns 프로젝트 설정 객체
- */
-export const getProjectConfig = () => {
-  return VALIDATED_PROJECT_ENV;
-};
+export const ENV_CONFIG = validateEnv();

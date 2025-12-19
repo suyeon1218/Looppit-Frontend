@@ -2,7 +2,7 @@
 
 import { cookies } from 'next/headers';
 
-import { getProjectConfig } from './env';
+import { ENV_CONFIG } from './env';
 
 type CookieOptions = {
   httpOnly?: boolean;
@@ -19,7 +19,7 @@ type setCookieProps = {
 
 export const setCookie = async ({ key, value, options }: setCookieProps) => {
   const cookieStore = await cookies();
-  const { isProduction } = getProjectConfig();
+  const { isProduction } = ENV_CONFIG;
 
   const { httpOnly, secure, sameSite, maxAge } = options;
   const secureValue = isProduction ? secure : false;
