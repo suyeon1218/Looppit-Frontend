@@ -29,12 +29,14 @@ const onAuthorizationError = async () => {
   await removeTokensFromCookies();
   store.set(tokenAtom, null);
 
-  window.location.href = '/login';
+  if (typeof window !== 'undefined') {
+    window.location.href = '/login';
+  }
 };
 
 export const handleUnauthorized = (error: AxiosError) => {
-  if (typeof window !== 'undefined') {
-    window.location.href = '/login';
+  if (typeof window !== 'undefined' && window.location.pathname === '/login') {
+    return Promise.reject(transformError(401, '로그인이 필요합니다.'));
   }
 
   return handleUnAuthorizedError(error, onAuthorizationError);
