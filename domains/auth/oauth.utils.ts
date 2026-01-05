@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server';
 
 import { OAuthSignupRequest } from '@/domains/auth/auth.api';
 import { ACCOUNT_PROVIDERS, AccountProvider } from '@/domains/auth/auth.types';
-import { ENVS } from '@/shared/constants';
+import { PROJECT_PRIVATE_ENV } from '@/shared/constants/environment.server';
 import { createTypeValidator, requireSearchParams } from '@/shared/utils';
 
 const isValid = createTypeValidator<AccountProvider>(ACCOUNT_PROVIDERS);
@@ -14,7 +14,7 @@ export const buildOAuthCallbackUrl = (
 ): string => {
   const callbackUrl = new URL(
     '/api/auth/oauth/exchange',
-    ENVS.NEXT_AUTH.BASE_URL,
+    PROJECT_PRIVATE_ENV.nextauth.baseUrl,
   );
   callbackUrl.searchParams.set('email', email);
   callbackUrl.searchParams.set('providerId', providerId);

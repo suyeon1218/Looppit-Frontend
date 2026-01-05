@@ -1,12 +1,12 @@
 import axios, { AxiosInstance } from 'axios';
 
-import { ENVS } from '@/shared/constants';
+import { PROJECT_ENV } from '@/shared/constants';
 
 import { API_TIMEOUT } from '../api.constants';
 
 export const initAxiosInstance = (): AxiosInstance => {
   return axios.create({
-    baseURL: ENVS.BASE_URL,
+    baseURL: PROJECT_ENV.apiEndPoint,
     timeout: API_TIMEOUT,
     withCredentials: true,
     headers: {

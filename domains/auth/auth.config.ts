@@ -1,26 +1,21 @@
-import Google from 'next-auth/providers/google';
 import Kakao from 'next-auth/providers/kakao';
 import Naver from 'next-auth/providers/naver';
 
 import { AccountProvider } from '@/domains/auth/auth.types';
-import { ENVS } from '@/shared/constants';
+import { PROJECT_PRIVATE_ENV } from '@/shared/constants/environment.server';
 import { buildUrl } from '@/shared/utils';
 
 import type { NextAuthConfig } from 'next-auth';
 
 export const authConfig = {
   providers: [
-    Google({
-      clientId: ENVS.GOOGLE.ID,
-      clientSecret: ENVS.GOOGLE.SECRET,
-    }),
     Kakao({
-      clientId: ENVS.KAKAO.ID,
-      clientSecret: ENVS.KAKAO.SECRET,
+      clientId: PROJECT_PRIVATE_ENV.kakao.id,
+      clientSecret: PROJECT_PRIVATE_ENV.kakao.secret,
     }),
     Naver({
-      clientId: ENVS.NAVER.ID,
-      clientSecret: ENVS.NAVER.SECRET,
+      clientId: PROJECT_PRIVATE_ENV.naver.id,
+      clientSecret: PROJECT_PRIVATE_ENV.naver.secret,
     }),
   ],
   pages: {
@@ -35,7 +30,7 @@ export const authConfig = {
 
       if (!email || !providerId || !provider) return false;
 
-      const baseUrl = ENVS.NEXT_AUTH.BASE_URL;
+      const baseUrl = PROJECT_PRIVATE_ENV.nextauth.baseUrl;
       if (!baseUrl) return false;
 
       return buildUrl(baseUrl, '/api/auth/oauth/exchange', {

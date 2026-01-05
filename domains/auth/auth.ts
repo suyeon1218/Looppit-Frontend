@@ -1,10 +1,10 @@
 import NextAuth from 'next-auth';
 
-import { ENVS } from '@/shared/constants';
+import { PROJECT_PRIVATE_ENV } from '@/shared/constants/environment.server';
 
 import { authConfig } from './auth.config';
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
-  secret: ENVS.NEXT_AUTH.SECRET,
+  secret: PROJECT_PRIVATE_ENV.nextauth.secret,
 });
