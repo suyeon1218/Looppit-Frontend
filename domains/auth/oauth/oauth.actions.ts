@@ -1,4 +1,5 @@
 import { signIn } from 'next-auth/react';
+import { toast } from 'sonner';
 
 import { ACCOUNT_PROVIDER_BY_SOCIAL_PROVIDER_ID } from '@/domains/auth/auth.types';
 import { processOAuthLogin } from '@/domains/auth/oauth/oauth.service';
@@ -46,7 +47,7 @@ const handleKakaoAppLogin = async () => {
 
     if (!isCancelled) {
       const errorMessage = getKakaoErrorMessage(errorCode!);
-      alert(errorMessage);
+      toast.error(errorMessage);
     }
     return;
   }
