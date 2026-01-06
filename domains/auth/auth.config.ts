@@ -1,11 +1,17 @@
 import Kakao from 'next-auth/providers/kakao';
 import Naver from 'next-auth/providers/naver';
 
-import { AccountProvider } from '@/domains/auth/auth.types';
+import {
+  ACCOUNT_PROVIDER_BY_SOCIAL_PROVIDER_ID,
+  SocialProvider,
+  SOCIAL_PROVIDERS,
+} from '@/domains/auth/auth.types';
 import { PROJECT_PRIVATE_ENV } from '@/shared/constants/environment.server';
-import { buildUrl } from '@/shared/utils';
+import { createTypeValidator, withSearchParams } from '@/shared/utils';
 
 import type { NextAuthConfig } from 'next-auth';
+
+const isSocialProvider = createTypeValidator<SocialProvider>(SOCIAL_PROVIDERS);
 
 export const authConfig = {
   providers: [
@@ -26,18 +32,24 @@ export const authConfig = {
     async signIn({ user, account }) {
       const email = user.email;
       const providerId = account?.providerAccountId;
-      const provider = account?.provider as AccountProvider;
+      const socialProviderId = account?.provider;
 
-      if (!email || !providerId || !provider) return false;
+      if (!email || !providerId || !socialProviderId) return false;
+      if (!isSocialProvider(socialProviderId)) return false;
+
+      const provider = ACCOUNT_PROVIDER_BY_SOCIAL_PROVIDER_ID[socialProviderId];
 
       const baseUrl = PROJECT_PRIVATE_ENV.nextauth.baseUrl;
       if (!baseUrl) return false;
 
-      return buildUrl(baseUrl, '/api/auth/oauth/exchange', {
+      const url = new URL('/api/auth/oauth/exchange', baseUrl);
+      const params = withSearchParams(url.searchParams, {
         email,
         providerId,
         provider,
       });
+
+      return `${url.origin}${url.pathname}?${params}`;
     },
   },
 } satisfies NextAuthConfig;

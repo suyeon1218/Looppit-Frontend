@@ -4,7 +4,11 @@ import { useEffect } from 'react';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import { createTypeValidator, removeQueryParams } from '@/shared/utils';
+import {
+  joinPathWithQuery,
+  createTypeValidator,
+  withoutSearchParams,
+} from '@/shared/utils';
 
 import { OAUTH_ERROR_CODES, OAuthErrorCode } from './oauth.constants';
 import { getOAuthErrorMessage } from './oauth.error';
@@ -36,10 +40,8 @@ export function useOAuthError() {
     const errorMessage = getOAuthErrorMessage(errorCode);
     window.alert(errorMessage);
 
-    const newUrl = removeQueryParams(
-      `${pathname}?${searchParams.toString()}`,
-      'error',
-    );
+    const newSearchParams = withoutSearchParams(searchParams, 'error');
+    const newUrl = joinPathWithQuery(pathname, newSearchParams);
 
     setTimeout(() => {
       router.replace(newUrl);

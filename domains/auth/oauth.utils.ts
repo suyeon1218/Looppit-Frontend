@@ -1,15 +1,15 @@
-import { NextRequest } from 'next/server';
+import type { ReadonlyURLSearchParams } from 'next/navigation';
 
-import { OAuthSignupRequest } from '@/domains/auth/auth.api';
 import { ACCOUNT_PROVIDERS, AccountProvider } from '@/domains/auth/auth.types';
-import { createTypeValidator, requireSearchParams } from '@/shared/utils';
+import { OAuthSignupRequest } from '@/domains/auth/oauth/oauth.api';
+import { createTypeValidator, getSearchParams } from '@/shared/utils';
 
 const isValid = createTypeValidator<AccountProvider>(ACCOUNT_PROVIDERS);
 
 export const parseOAuthParams = (
-  request: NextRequest,
+  searchParams: URLSearchParams | ReadonlyURLSearchParams,
 ): OAuthSignupRequest | null => {
-  const params = requireSearchParams(request, [
+  const params = getSearchParams(searchParams, [
     'email',
     'providerId',
     'provider',

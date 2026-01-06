@@ -1,69 +1,74 @@
+import type { ReadonlyURLSearchParams } from 'next/navigation';
+
 import type { QueryValue } from '@/shared/api/api.types';
 
-const setQueryParams = (
-  searchParams: URLSearchParams,
-  queryParams: Record<string, QueryValue>,
-): void => {
-  Object.entries(queryParams).forEach(([key, value]) => {
-    if (value !== null && value !== undefined) {
-      searchParams.set(key, String(value));
-    }
-  });
-};
-
-export const buildUrl = (
-  baseUrl: string,
-  pathname: string,
-  queryParams?: Record<string, QueryValue>,
-): string => {
-  if (!baseUrl) {
-    const searchParams = new URLSearchParams();
-    if (queryParams) setQueryParams(searchParams, queryParams);
-    const queryString = searchParams.toString();
-    return queryString ? `${pathname}?${queryString}` : pathname;
-  }
-
-  const url = new URL(pathname, baseUrl);
-  if (queryParams) setQueryParams(url.searchParams, queryParams);
-  return url.toString();
-};
-
 /**
- * URL에서 특정 쿼리 파라미터를 제거한 새로운 URL 문자열을 반환합니다.
- *
- * @param url - 전체 URL 문자열 또는 pathname + query string
- * @param paramNames - 제거할 쿼리 파라미터 이름 (단일 문자열 또는 문자열 배열)
- * @returns 파라미터가 제거된 URL 문자열
+ * 쿼리 파라미터를 추가/설정한 새로운 URLSearchParams를 반환합니다.
+ * null, undefined 값은 무시됩니다.
+ * 원본 searchParams는 변경되지 않습니다.
  *
  * @example
  * ```ts
- * removeQueryParams('/login?error=123&redirect=/home', 'error')
- * removeQueryParams('/login?error=123&redirect=/home', ['error', 'redirect'])
- * removeQueryParams('https://example.com/path?foo=bar&baz=qux', 'foo')
+ * const newParams = withSearchParams(searchParams, { email, providerId, provider });
  * ```
  */
-export const removeQueryParams = (
-  url: string,
-  paramNames: string | string[],
-): string => {
-  const paramNameArray = Array.isArray(paramNames) ? paramNames : [paramNames];
+export const withSearchParams = (
+  searchParams: URLSearchParams | ReadonlyURLSearchParams,
+  params: Record<string, QueryValue>,
+): URLSearchParams => {
+  const newParams = new URLSearchParams(searchParams.toString());
 
-  if (!url.includes('://')) {
-    const [pathname, queryString] = url.split('?');
-    const searchParams = new URLSearchParams(queryString);
-
-    paramNameArray.forEach((paramName) => {
-      searchParams.delete(paramName);
-    });
-
-    const newQueryString = searchParams.toString();
-    return newQueryString ? `${pathname}?${newQueryString}` : pathname;
-  }
-
-  const urlObj = new URL(url);
-  paramNameArray.forEach((paramName) => {
-    urlObj.searchParams.delete(paramName);
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== null && value !== undefined) {
+      newParams.set(key, String(value));
+    }
   });
 
-  return urlObj.toString();
+  return newParams;
+};
+
+/**
+ * 쿼리 파라미터를 제거한 새로운 URLSearchParams를 반환합니다.
+ * 원본 searchParams는 변경되지 않습니다.
+ *
+ * @example
+ * ```ts
+ * const newParams = withoutSearchParams(searchParams, 'error');
+ * const newParams = withoutSearchParams(searchParams, ['error', 'redirect']);
+ * ```
+ */
+export const withoutSearchParams = (
+  searchParams: URLSearchParams | ReadonlyURLSearchParams,
+  keys: string | string[],
+): URLSearchParams => {
+  const newParams = new URLSearchParams(searchParams.toString());
+  const keyArray = Array.isArray(keys) ? keys : [keys];
+
+  keyArray.forEach((key) => newParams.delete(key));
+
+  return newParams;
+};
+
+/**
+ * pathname과 쿼리 파라미터를 조합하여 URL 문자열을 생성합니다.
+ * URLSearchParams 또는 params 객체를 받을 수 있습니다.
+ * 쿼리 파라미터가 없으면 pathname만 반환합니다.
+ *
+ * @example
+ * ```ts
+ * joinPathWithQuery('/login', searchParams) // '/login?foo=bar'
+ * joinPathWithQuery('/email/send', { email: 'test@test.com' }) // '/email/send?email=test%40test.com'
+ * ```
+ */
+export const joinPathWithQuery = (
+  pathname: string,
+  params: URLSearchParams | Record<string, QueryValue>,
+): string => {
+  const searchParams =
+    params instanceof URLSearchParams
+      ? params
+      : withSearchParams(new URLSearchParams(), params);
+
+  const queryString = searchParams.toString();
+  return queryString ? `${pathname}?${queryString}` : pathname;
 };

@@ -16,7 +16,7 @@ import {
  * 에러 시 `/login?error={errorCode}`로 리다이렉트
  */
 export async function GET(request: NextRequest) {
-  const params = parseOAuthParams(request);
+  const params = parseOAuthParams(request.nextUrl.searchParams);
 
   if (!params) {
     return NextResponse.redirect(
