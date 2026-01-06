@@ -4,7 +4,7 @@ import { useLayoutEffect } from 'react';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import { OAUTH_ERROR_CODES } from '@/domains/auth/oauth.constants';
+import { OAUTH_ERROR_CODES } from '@/domains/auth/oauth';
 import { useSetTokenAtom } from '@/shared/store/auth.atom';
 
 /**

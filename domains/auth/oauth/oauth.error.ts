@@ -3,7 +3,11 @@ import { ZodError } from 'zod';
 import { ApiError } from '@/shared/api/api.types';
 import { isApiError } from '@/shared/guard/api-error';
 
-import { OAUTH_ERROR_CODES, OAuthErrorCode } from './oauth.constants';
+import {
+  OAUTH_ERROR_CODES,
+  OAUTH_ERROR_MESSAGES,
+  OAuthErrorCode,
+} from './oauth.constants';
 
 /**
  * OAuth 에러 타입 분류
@@ -15,25 +19,6 @@ export type OAuthError = {
   code: OAuthErrorCode;
   message: string;
   originalError?: unknown;
-};
-
-/**
- * 에러 타입별 메시지 매핑
- *
- * 각 에러 타입에 맞는 사용자 친화적인 메시지를 제공합니다.
- */
-const ERROR_MESSAGE_MAP: Record<OAuthErrorCode, string> = {
-  [OAUTH_ERROR_CODES.MISSING_PARAMS]:
-    '필수 정보가 누락되었습니다. 다시 시도해주세요.',
-  [OAUTH_ERROR_CODES.OAUTH_FAILED]:
-    '소셜 로그인에 실패했습니다. 다시 시도해주세요.',
-  [OAUTH_ERROR_CODES.MISSING_TOKEN]:
-    '인증 토큰이 없습니다. 다시 로그인해주세요.',
-  [OAUTH_ERROR_CODES.NETWORK_ERROR]: '네트워크 연결을 확인해주세요.',
-  [OAUTH_ERROR_CODES.SERVER_ERROR]:
-    '서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
-  [OAUTH_ERROR_CODES.AUTH_ERROR]: '인증에 실패했습니다. 다시 로그인해주세요.',
-  [OAUTH_ERROR_CODES.VALIDATION_ERROR]: '입력 정보를 확인해주세요.',
 };
 
 /**
@@ -52,7 +37,7 @@ export const classifyOAuthError = (error: unknown): OAuthError => {
   if (error instanceof ZodError) {
     return {
       code: OAUTH_ERROR_CODES.VALIDATION_ERROR,
-      message: ERROR_MESSAGE_MAP[OAUTH_ERROR_CODES.VALIDATION_ERROR],
+      message: OAUTH_ERROR_MESSAGES[OAUTH_ERROR_CODES.VALIDATION_ERROR],
       originalError: error,
     };
   }
@@ -63,7 +48,7 @@ export const classifyOAuthError = (error: unknown): OAuthError => {
 
   return {
     code: OAUTH_ERROR_CODES.OAUTH_FAILED,
-    message: ERROR_MESSAGE_MAP[OAUTH_ERROR_CODES.OAUTH_FAILED],
+    message: OAUTH_ERROR_MESSAGES[OAUTH_ERROR_CODES.OAUTH_FAILED],
     originalError: error,
   };
 };
@@ -85,7 +70,7 @@ const classifyApiError = (apiError: ApiError): OAuthError => {
         code: OAUTH_ERROR_CODES.VALIDATION_ERROR,
         message:
           apiError.message ||
-          ERROR_MESSAGE_MAP[OAUTH_ERROR_CODES.VALIDATION_ERROR],
+          OAUTH_ERROR_MESSAGES[OAUTH_ERROR_CODES.VALIDATION_ERROR],
         originalError: apiError,
       };
     }
@@ -94,7 +79,8 @@ const classifyApiError = (apiError: ApiError): OAuthError => {
       return {
         code: OAUTH_ERROR_CODES.AUTH_ERROR,
         message:
-          apiError.message || ERROR_MESSAGE_MAP[OAUTH_ERROR_CODES.AUTH_ERROR],
+          apiError.message ||
+          OAUTH_ERROR_MESSAGES[OAUTH_ERROR_CODES.AUTH_ERROR],
         originalError: apiError,
       };
     }
@@ -102,7 +88,8 @@ const classifyApiError = (apiError: ApiError): OAuthError => {
     return {
       code: OAUTH_ERROR_CODES.OAUTH_FAILED,
       message:
-        apiError.message || ERROR_MESSAGE_MAP[OAUTH_ERROR_CODES.OAUTH_FAILED],
+        apiError.message ||
+        OAUTH_ERROR_MESSAGES[OAUTH_ERROR_CODES.OAUTH_FAILED],
       originalError: apiError,
     };
   }
@@ -110,7 +97,7 @@ const classifyApiError = (apiError: ApiError): OAuthError => {
   return {
     code: OAUTH_ERROR_CODES.OAUTH_FAILED,
     message:
-      apiError.message || ERROR_MESSAGE_MAP[OAUTH_ERROR_CODES.OAUTH_FAILED],
+      apiError.message || OAUTH_ERROR_MESSAGES[OAUTH_ERROR_CODES.OAUTH_FAILED],
     originalError: apiError,
   };
 };
@@ -123,7 +110,7 @@ const classifyApiError = (apiError: ApiError): OAuthError => {
  */
 export const getOAuthErrorMessage = (errorCode: OAuthErrorCode): string => {
   return (
-    ERROR_MESSAGE_MAP[errorCode] ||
-    ERROR_MESSAGE_MAP[OAUTH_ERROR_CODES.OAUTH_FAILED]
+    OAUTH_ERROR_MESSAGES[errorCode] ||
+    OAUTH_ERROR_MESSAGES[OAUTH_ERROR_CODES.OAUTH_FAILED]
   );
 };

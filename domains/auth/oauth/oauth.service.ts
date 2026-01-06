@@ -1,13 +1,10 @@
-import {
-  OAuthSignupRequest,
-  postOAuthSignupRequest,
-} from '@/domains/auth/auth.api';
+import { OAuthExchangeResult } from '@/domains/auth/oauth';
 import { ONE_MONTH_SECONDS } from '@/shared/constants/time';
 import { setCookie } from '@/shared/utils/cookie';
 
-export interface OAuthExchangeResult {
-  redirectUrl: URL;
-}
+import { postOAuthSignupRequest } from './oauth.api';
+
+import type { OAuthSignupRequest } from './oauth.api';
 
 export const exchangeOAuthToken = async (
   params: OAuthSignupRequest,

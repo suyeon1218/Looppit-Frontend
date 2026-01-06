@@ -1,7 +1,8 @@
 import { z } from 'zod';
 
-import { ACCOUNT_PROVIDERS } from '@/domains/auth/auth.types';
 import { apiServerClient } from '@/shared/api/api.client';
+
+import { ACCOUNT_PROVIDERS } from '../auth.types';
 
 const oAuthProviderInfoSchema = z.object({
   provider: z.enum(ACCOUNT_PROVIDERS),

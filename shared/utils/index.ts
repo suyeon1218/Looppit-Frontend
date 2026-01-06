@@ -5,3 +5,7 @@ export * from './cookie';
 export * from './token';
 export * from './url';
 export * from './type';
+export * from './bridge';
+export * from './logger';
+export * from './platform';
+export * from './error';
