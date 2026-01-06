@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { apiServerClient } from '@/shared/api/api.client';
+import { apiServerClient } from '@/shared/api/api.server-client';
 
 import { ACCOUNT_PROVIDERS } from '../auth.types';
 
