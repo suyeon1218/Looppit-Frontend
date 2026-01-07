@@ -2,6 +2,8 @@
 
 import { NextRequest } from 'next/server';
 
+import { COOKIE_KEYS } from '@/shared/constants';
+
 export const GUEST_ROUTES = ['/landing', '/login', '/signup'] as const;
 
 export const isGuestRoute = (request: NextRequest) => {
@@ -10,8 +12,8 @@ export const isGuestRoute = (request: NextRequest) => {
 };
 
 export const hasSession = (request: NextRequest) => {
-  const refreshToken = request.cookies.get('ACCESS_TOKEN');
-  return !!refreshToken;
+  const accessToken = request.cookies.get(COOKIE_KEYS.ACCESS_TOKEN)?.value;
+  return !!accessToken;
 };
 
 export const isProtectedRoute = (request: NextRequest) => {
