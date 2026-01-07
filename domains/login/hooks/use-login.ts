@@ -1,8 +1,7 @@
-import toast from 'react-hot-toast';
-
 import { useRouter } from 'next/navigation';
 
 import { useMutation } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 import { isApiError } from '@/shared/guard';
 import { useSetTokenAtom } from '@/shared/store/auth.atom';
