@@ -1,33 +1,27 @@
 'use server';
 
-import { cookies } from 'next/headers';
+import { apiServerClient } from '@/shared/api/api.server-client';
+import { applySetCookieHeader, makeNextResponseError } from '@/shared/utils';
 
-import { PROJECT_ENV } from '@/shared/constants';
+import { createApiResponse } from './api.response-format';
 
-import { RefreshTokenResponse } from '../api.types';
-
-export const fetchRefreshToken = async (): Promise<RefreshTokenResponse> => {
-  const cookieStore = await cookies();
-  const refreshToken = cookieStore.get('refreshToken')?.value;
-  const { apiEndPoint } = PROJECT_ENV;
-
+/**
+ * 리프레시 토큰 재발급 api route
+ * refresh token의 path를 임의로 조정해놓은 상태이므로 추후에 문제가 될 경우 Request를 수정하여 보내야 합니다.
+ */
+export const fetchRefreshToken = async () => {
   try {
-    const response = await fetch(apiEndPoint + '/auth/reissue', {
+    const response = await apiServerClient.requestRaw('/auth/reissue', {
       method: 'POST',
-      body: JSON.stringify({ refreshToken }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
     });
+    const setCookieHeaders = response.headers['set-cookie'];
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch refresh token');
+    if (setCookieHeaders && Array.isArray(setCookieHeaders)) {
+      await applySetCookieHeader(setCookieHeaders);
     }
 
-    const data = await response.json();
-
-    return data;
+    return createApiResponse(response.data, '토큰 재발급에 성공했습니다.');
   } catch (error) {
-    throw error;
+    return makeNextResponseError(error);
   }
 };
