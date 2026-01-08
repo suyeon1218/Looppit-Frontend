@@ -4,7 +4,7 @@ import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { Icon, IconName } from '@/shared/ui/icon';
-import { cn } from '@/shared/utils/utils';
+import { cn } from '@/shared/utils';
 
 type ButtonProps = React.ComponentProps<'button'> &
   VariantProps<typeof buttonVariants> & {
