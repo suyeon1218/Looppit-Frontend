@@ -19,7 +19,7 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <div className={`${wantedSans.variable} font-wanted-sans`}>
+      <div className={`${wantedSans.variable} font-wanted-sans antialiased`}>
         <Story />
       </div>
     ),
