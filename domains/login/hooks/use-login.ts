@@ -4,12 +4,10 @@ import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { isApiError } from '@/shared/guard';
-import { useSetTokenAtom } from '@/shared/store/auth.atom';
 
 import { loginAction } from '../api';
 
 export const useLogin = () => {
-  const setTokenAtom = useSetTokenAtom();
   const router = useRouter();
 
   return useMutation({
@@ -19,11 +17,8 @@ export const useLogin = () => {
         toast.error(error.message);
       }
     },
-    onSuccess: (data) => {
-      if (data && 'accessToken' in data) {
-        setTokenAtom(data.accessToken);
-        router.push('/');
-      }
+    onSuccess: () => {
+      router.push('/');
     },
   });
 };

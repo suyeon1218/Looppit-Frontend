@@ -1,7 +1,6 @@
 import { AxiosError } from 'axios';
 import { getDefaultStore } from 'jotai';
 
-import { tokenAtom } from '@/shared/store/auth.atom';
 import { removeTokensFromCookies } from '@/shared/utils';
 
 import { DEFAULT_ERROR_MESSAGE, ERROR_MESSAGE_MAP } from '../api.constants';
@@ -27,7 +26,7 @@ const onAuthorizationError = async () => {
   const store = getDefaultStore();
 
   await removeTokensFromCookies();
-  store.set(tokenAtom, null);
+  // store.set(tokenAtom, null);
 
   window.location.href = '/login';
 };
@@ -51,7 +50,10 @@ export const handleResponseError = (error: AxiosError) => {
 
   const { status, data } = error.response;
 
-  if (status === 401) {
+  if (
+    status === 401 &&
+    !error.response?.config.url?.includes('/api/auth/login')
+  ) {
     return handleUnauthorized(error);
   }
 
