@@ -20,16 +20,12 @@
   --positive: #4ade80;
   --action: #818cf8;
   --destructive: #ef4444;
-
-  --radius-small: 12px;
-  --radius-medium: 24px;
-  --radius-large: 32px;
 }
 
 @theme inline {
-  --radius-small: var(--radius-small);
-  --radius-medium: var(--radius-medium);
-  --radius-large: var(--radius-large);
+  --radius-small: 12px;
+  --radius-medium: 24px;
+  --radius-large: 32px;
 
   /* Custom Colors - 추가 색상 */
   --color-background: var(--background);
@@ -54,32 +50,32 @@
 }
 
 /* Typography Styles */
-@utility text-title-lg {
+@utility typography-title-lg {
   font-size: 18px;
   font-weight: 700;
 }
 
-@utility text-title-medium {
+@utility typography-title-medium {
   font-size: 16px;
   font-weight: 700;
 }
 
-@utility text-body-bold {
+@utility typography-body-bold {
   font-size: 14px;
   font-weight: 700;
 }
 
-@utility text-body-semibold {
+@utility typography-body-semibold {
   font-size: 14px;
   font-weight: 600;
 }
 
-@utility text-caption-bold {
+@utility typography-caption-bold {
   font-size: 12px;
   font-weight: 700;
 }
 
-@utility text-caption-medium {
+@utility typography-caption-medium {
   font-size: 12px;
   font-weight: 500;
 }

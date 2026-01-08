@@ -19,12 +19,12 @@ const meta = {
     className: {
       control: 'select',
       options: [
-        'text-title-lg',
-        'text-title-medium',
-        'text-body-bold',
-        'text-body-semibold',
-        'text-caption-bold',
-        'text-caption-medium',
+        'typography-title-lg',
+        'typography-medium',
+        'typography-body-bold',
+        'typography-body-semibold',
+        'typography-caption-bold',
+        'typography-caption-medium',
       ],
       description: '폰트 굵기를 선택하세요',
     },
@@ -43,42 +43,42 @@ type Story = StoryObj<typeof meta>;
 
 export const TitleLarge: Story = {
   args: {
-    className: 'text-title-lg',
+    className: 'typography-title-lg',
     children: 'Title Large',
   },
 };
 
 export const TitleMedium: Story = {
   args: {
-    className: 'text-title-medium',
+    className: 'typography-title-medium',
     children: 'Title Medium',
   },
 };
 
 export const BodyBold: Story = {
   args: {
-    className: 'text-body-bold',
+    className: 'typography-body-bold',
     children: 'Body Bold',
   },
 };
 
 export const BodySemibold: Story = {
   args: {
-    className: 'text-body-semibold',
+    className: 'typography-body-semibold',
     children: 'Body Semibold',
   },
 };
 
 export const CaptionBold: Story = {
   args: {
-    className: 'text-caption-bold',
+    className: 'typography-caption-bold',
     children: 'Caption Bold',
   },
 };
 
 export const CaptionMedium: Story = {
   args: {
-    className: 'text-caption-medium',
+    className: 'typography-caption-medium',
     children: 'Caption Medium',
   },
 };
