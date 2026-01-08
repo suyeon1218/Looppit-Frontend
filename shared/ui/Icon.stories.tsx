@@ -13,7 +13,8 @@ const meta = {
     docs: {
       description: {
         component:
-          'SVG 아이콘 파일의 이름을 받아 컴포넌트로 출력합니다. 색상은 className을 통해 직접 스타일링할 수 있습니다.',
+          'Looppit의 Icon 컴포넌트는 **svg 아이콘 파일의 이름**을 받아 컴포넌트로 출력합니다.<br/>' +
+          '색상은 **className**을 통해 직접 스타일링할 수 있습니다.',
       },
     },
   },
