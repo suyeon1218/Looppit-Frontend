@@ -1,18 +1,7 @@
-import { StrictPropsWithChildren } from '@/shared/types';
+import { Container, createHiddenArgs } from '@/shared/stories/components';
 import { Button } from '@/shared/ui/button';
 
 import type { Meta, StoryObj } from '@storybook/nextjs';
-
-const Container = ({
-  children,
-  className,
-}: StrictPropsWithChildren & { className?: string }) => {
-  return (
-    <div className={`w-[250px] bg-background px-6 py-4 ${className}`}>
-      {children}
-    </div>
-  );
-};
 
 const meta = {
   title: 'Components/Button',
@@ -55,14 +44,7 @@ const meta = {
       description: '버튼 비활성화 여부',
       table: { defaultValue: { summary: 'false' } },
     },
-    asChild: {
-      table: { disable: true },
-      control: false,
-    },
-    type: {
-      table: { disable: true },
-      control: false,
-    },
+    ...createHiddenArgs(Button, ['asChild', 'type']),
   },
   args: {
     children: '버튼',
