@@ -3,7 +3,7 @@ import { Icon, type IconName, type IconSize } from '@/shared/ui/icon';
 
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
-const ICON_SIZES: IconSize[] = ['12', '14', '16', '18', '24', '30', '36'];
+const ICON_SIZES: IconSize[] = ['12', '14', '16', '18', '20', '24', '30', '36'];
 
 const meta = {
   title: 'Components/Icon',

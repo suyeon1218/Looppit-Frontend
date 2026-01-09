@@ -5,7 +5,7 @@ import { cn } from '@/shared/utils';
 
 export type IconName = keyof typeof icons;
 
-export type IconSize = '12' | '14' | '16' | '18' | '24' | '30' | '36';
+export type IconSize = '12' | '14' | '16' | '18' | '20' | '24' | '30' | '36';
 
 export interface IconProps extends SVGProps<SVGElement> {
   /** 아이콘 이름 */
