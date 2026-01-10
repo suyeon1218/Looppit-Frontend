@@ -5,6 +5,7 @@ import { NextResponse } from 'next/server';
 import { AxiosError } from 'axios';
 
 import { apiServerClient } from '@/shared/api/api.server-client';
+import { createApiResponse } from '@/shared/api/utils/api.response-format';
 import { applySetCookieHeader } from '@/shared/utils';
 
 export const postLogin = async (formData: FormData) => {
@@ -23,10 +24,7 @@ export const postLogin = async (formData: FormData) => {
       await applySetCookieHeader(setCookieHeaders);
     }
 
-    return {
-      code: 'HTTP_200',
-      message: '로그인에 성공했습니다.',
-    };
+    return createApiResponse(response.data, '로그인에 성공했습니다.');
   } catch (error) {
     const errorCode =
       error instanceof AxiosError ? error.response?.status : 500;
