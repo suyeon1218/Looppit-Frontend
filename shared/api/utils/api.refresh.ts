@@ -3,7 +3,7 @@ import { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 import { apiServerClient } from '@/shared/api/api.server-client';
 import { applySetCookieHeader, makeNextResponseError } from '@/shared/utils';
 
-import { createApiResponse } from './api.response-format';
+import { createApiError, createApiResponse } from './api.response-format';
 
 /**
  * 리프레시 토큰 재발급 api route
@@ -22,7 +22,9 @@ export const fetchRefreshToken = async () => {
 
     return createApiResponse(response.data, '토큰 재발급에 성공했습니다.');
   } catch (error) {
-    return makeNextResponseError(error);
+    const apiError = createApiError(error);
+
+    return makeNextResponseError(apiError);
   }
 };
 

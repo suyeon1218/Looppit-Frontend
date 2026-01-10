@@ -1,12 +1,11 @@
 'use server';
 
-import { NextResponse } from 'next/server';
-
-import { AxiosError } from 'axios';
-
 import { apiServerClient } from '@/shared/api/api.server-client';
-import { createApiResponse } from '@/shared/api/utils/api.response-format';
-import { applySetCookieHeader } from '@/shared/utils';
+import {
+  createApiError,
+  createApiResponse,
+} from '@/shared/api/utils/api.response-format';
+import { applySetCookieHeader, makeNextResponseError } from '@/shared/utils';
 
 export const postLogin = async (formData: FormData) => {
   try {
@@ -26,18 +25,8 @@ export const postLogin = async (formData: FormData) => {
 
     return createApiResponse(response.data, '로그인에 성공했습니다.');
   } catch (error) {
-    const errorCode =
-      error instanceof AxiosError ? error.response?.status : 500;
-    const errorMessage =
-      error instanceof AxiosError
-        ? error.response?.data?.message
-        : '로그인에 실패했습니다. 잠시 후 다시 시도해주세요';
+    const apiError = createApiError(error);
 
-    return NextResponse.json(
-      {
-        message: errorMessage,
-      },
-      { status: errorCode },
-    );
+    return makeNextResponseError(apiError);
   }
 };
