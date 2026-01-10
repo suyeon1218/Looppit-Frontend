@@ -1,4 +1,4 @@
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosInstance } from 'axios';
 
 import { removeTokensFromCookies } from '@/shared/utils';
 
@@ -27,19 +27,14 @@ const onAuthorizationError = async () => {
   window.location.href = '/login';
 };
 
-export const handleUnauthorized = (error: AxiosError) => {
-  if (typeof window !== 'undefined') {
-    window.location.href = '/login';
-  }
-
-  return handleUnAuthorizedError(error, onAuthorizationError);
-};
-
 export const handleNetworkError = () => {
   return Promise.reject(transformError(503, '네트워크 연결을 확인해주세요.'));
 };
 
-export const handleResponseError = (error: AxiosError) => {
+export const handleResponseError = (
+  instance: AxiosInstance,
+  error: AxiosError,
+) => {
   if (!error.response) {
     return handleNetworkError();
   }
@@ -47,7 +42,7 @@ export const handleResponseError = (error: AxiosError) => {
   const { status, data } = error.response;
 
   if (status === 401) {
-    return handleUnauthorized(error);
+    return handleUnAuthorizedError(instance, error, onAuthorizationError);
   }
 
   const errorResponse = data as ErrorResponse | undefined;
