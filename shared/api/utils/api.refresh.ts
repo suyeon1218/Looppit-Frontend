@@ -1,4 +1,4 @@
-import { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 
 import { apiServerClient } from '@/shared/api/api.server-client';
 import { applySetCookieHeader, makeNextResponseError } from '@/shared/utils';
@@ -68,35 +68,39 @@ class RefreshTokenHandler {
     );
   }
 
+  private async performRefresh(
+    axiosInstance: AxiosInstance,
+    onAuthorizationError: () => void,
+  ) {
+    try {
+      await fetchRefreshToken();
+      await this.processSuspendedRequests(axiosInstance);
+    } catch (error) {
+      onAuthorizationError();
+      await this.rejectSuspendedRequests(error);
+    } finally {
+      this.clearSuspendedRequests();
+    }
+  }
+
   async handleUnAuthorizedError(
+    axiosInstance: AxiosInstance,
     error: AxiosError,
     onAuthorizationError: () => void,
   ) {
     const originalRequest = error.config;
 
-    if (!originalRequest) {
+    if (!originalRequest || originalRequest._retry) {
       return Promise.reject(error);
     }
+    originalRequest._retry = true;
+    const requestPromise = this.addSuspendedRequest(originalRequest);
 
-    if (this.isRefreshing) {
-      return await this.addSuspendedRequest(originalRequest);
+    if (!this.isRefreshing) {
+      this.isRefreshing = true;
+      await this.performRefresh(axiosInstance, onAuthorizationError);
     }
-
-    this.isRefreshing = true;
-
-    try {
-      await fetchRefreshToken();
-
-      this.processSuspendedRequests();
-      return originalRequest;
-    } catch (error) {
-      onAuthorizationError();
-      this.rejectSuspendedRequests(error);
-
-      return Promise.reject(error);
-    } finally {
-      this.clearSuspendedRequests();
-    }
+    return requestPromise;
   }
 }
 
