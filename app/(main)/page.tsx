@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 
-import { useUserProfile } from './user/user.hooks';
+import { useUserProfile } from '@/domains/user/user.hooks';
 
 export default function Home() {
   const { data } = useUserProfile();
