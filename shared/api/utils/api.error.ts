@@ -21,12 +21,6 @@ export const getErrorCode = (error: unknown) => {
   return 500;
 };
 
-const onAuthorizationError = async () => {
-  await removeTokensFromCookies();
-
-  window.location.href = '/login';
-};
-
 export const handleNetworkError = () => {
   return Promise.reject(createApiError(503, '네트워크 연결을 확인해주세요.'));
 };
@@ -42,7 +36,7 @@ export const handleResponseError = (
   const { status, data } = error.response;
 
   if (status === 401) {
-    return handleUnAuthorizedError(instance, error, onAuthorizationError);
+    return handleUnAuthorizedError(instance, error);
   }
 
   const errorResponse = data as ErrorResponse | undefined;
