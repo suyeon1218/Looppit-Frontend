@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { Container, createHiddenArgs } from '@/shared/stories/components';
-import { TodoItem } from '@/shared/ui/todo-item';
+import { TodoItem } from '@/shared/ui/todo/todo-item';
 
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
