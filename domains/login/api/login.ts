@@ -5,7 +5,7 @@ import {
   createApiError,
   createApiResponse,
 } from '@/shared/api/utils/api.response-format';
-import { applySetCookieHeader, makeNextResponseError } from '@/shared/utils';
+import { applySetCookieHeader } from '@/shared/utils';
 
 export const postLogin = async (formData: FormData) => {
   try {
@@ -25,8 +25,6 @@ export const postLogin = async (formData: FormData) => {
 
     return createApiResponse(response.data, '로그인에 성공했습니다.');
   } catch (error) {
-    const apiError = createApiError(error);
-
-    return makeNextResponseError(apiError);
+    return createApiError(error);
   }
 };
