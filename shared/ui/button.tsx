@@ -30,10 +30,13 @@ const buttonVariants = cva(
           'text-white bg-destructive enabled:active:bg-destructive/90 enabled:hover:bg-destructive/90',
         outline:
           'bg-card enabled:active:bg-card-lighter enabled:hover:bg-card-lighter text-white/90 border border-white/10 gap-4',
+        ghost:
+          'bg-transparent text-white enabled:active:bg-transparent enabled:hover:bg-transparent',
       },
       size: {
         title: 'typography-title-medium',
         body: 'typography-body-semibold',
+        icon: 'size-6',
       },
       align: {
         center: 'justify-center',
