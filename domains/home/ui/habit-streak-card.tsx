@@ -1,6 +1,6 @@
 import { Icon } from '@/shared/ui/icon';
 
-const HabitStreakCard = () => {
+export const HabitStreakCard = () => {
   return (
     <div className="bg-card p-4 px-6 rounded-small flex items-center justify-between border border-white-soft shadow-lg relative overflow-hidden w-full">
       <div className="relative z-10">
@@ -19,5 +19,3 @@ const HabitStreakCard = () => {
     </div>
   );
 };
-
-export default HabitStreakCard;

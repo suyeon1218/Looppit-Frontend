@@ -1,12 +1,11 @@
 import Image from 'next/image';
 
-const UserGreeting = ({
-  name,
-  profileImage,
-}: {
+type UserGreetingProps = {
   name: string;
   profileImage: string;
-}) => {
+};
+
+export const UserGreeting = ({ name, profileImage }: UserGreetingProps) => {
   return (
     <div className="flex items-center justify-between w-full">
       <div className="flex items-center gap-3.5">
@@ -30,5 +29,3 @@ const UserGreeting = ({
     </div>
   );
 };
-
-export default UserGreeting;
