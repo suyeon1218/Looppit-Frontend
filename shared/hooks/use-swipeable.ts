@@ -20,7 +20,7 @@ interface SwipeableReturnTypes {
 const MAX_SWIPE = -130;
 const SWIPE_BUFFER = 40;
 
-const useSwipeable = (
+export const useSwipeable = (
   options: Partial<swipeableProps> = {},
 ): SwipeableReturnTypes => {
   const maxSwipe = options.maxSwipe ?? MAX_SWIPE;
@@ -108,5 +108,3 @@ const useSwipeable = (
     },
   };
 };
-
-export default useSwipeable;
