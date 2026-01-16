@@ -182,7 +182,7 @@ function Calendar({
         Day: ({ children, ...props }) => {
           return (
             <div {...props}>
-              <button className="w-9 h-9 flex items-center justify-center rounded-full text-[14px] font-medium transition-all text-white/80 hover:bg-white/5">
+              <button className="cursor-pointer w-9 h-9 flex items-center justify-center rounded-full text-[14px] font-medium transition-all text-white/80 hover:bg-white/5">
                 {children}
               </button>
             </div>
