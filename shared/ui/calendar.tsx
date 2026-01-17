@@ -110,11 +110,14 @@ function Calendar({
           defaultClassNames.week_number,
         ),
         day: cn(
-          'relative w-full h-full p-0 text-center [&:last-child[data-selected=true]_button]:rounded-r-md group/day aspect-square select-none ',
+          'relative w-full h-full p-0 text-center  group/day aspect-square select-none ',
           'flex flex-col items-center justify-center',
           props.showWeekNumber
             ? '[&:nth-child(2)[data-selected=true]_button]:rounded-l-md'
             : '[&:first-child[data-selected=true]_button]:rounded-l-md',
+          props.mode === 'single'
+            ? '[&:last-child[data-selected=true]_button]:rounded-full [&:first-child[data-selected=true]_button]:rounded-full'
+            : '[&:last-child[data-selected=true]_button]:rounded-r-md',
           defaultClassNames.day,
         ),
         range_start: cn(
@@ -181,8 +184,7 @@ function Calendar({
             <div {...props}>
               <button
                 className={cn(
-                  'cursor-pointer w-9 h-9 flex items-center justify-center rounded-full text-[14px] font-medium transition-all text-white/80 hover:bg-white/5',
-                  'in-data-[today=true]:bg-primary in-data-[today=true]:text-white in-data-[today=true]:shadow-lg in-data-[today=true]:shadow-primary/30',
+                  'cursor-pointer w-9 h-9 flex items-center justify-center rounded-full text-[14px] font-medium text-white/80 hover:bg-white/5 in-data-[selected=true]:hover:bg-primary',
                   defaultClassNames.day,
                 )}
               >
@@ -227,7 +229,13 @@ function CalendarDayButton({
       data-range-end={modifiers.range_end}
       data-range-middle={modifiers.range_middle}
       className={cn(
-        'data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground data-[range-middle=true]:bg-accent data-[range-middle=true]:text-accent-foreground data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-ring/50 dark:hover:text-accent-foreground flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:ring-[3px] data-[range-end=true]:rounded-md data-[range-end=true]:rounded-r-md data-[range-middle=true]:rounded-none data-[range-start=true]:rounded-md data-[range-start=true]:rounded-l-md [&>span]:text-xs [&>span]:opacity-70',
+        'in-data-[today=true]:text-primary data-[selected-single=true]:text-white data-[selected-single=true]:bg-primary data-[selected-single=true]:rounded-full p-0',
+        'data-[range-middle=true]:bg-accent data-[range-middle=true]:text-accent-foreground data-[range-middle=true]:rounded-none',
+        // 'data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[range-start=true]:rounded-md data-[range-start=true]:rounded-l-md',
+        // 'data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-end=true]:rounded-md data-[range-end=true]:rounded-r-md',
+        // 'group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-ring/50 group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:ring-[3px]',
+        'dark:hover:text-accent-foreground enabled:hover:scale-100 transition-none',
+        'flex cursor-pointer aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 leading-none font-normal [&>span]:text-xs [&>span]:opacity-70',
         defaultClassNames.day,
         className,
       )}
