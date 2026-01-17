@@ -17,7 +17,7 @@ import { ko } from 'react-day-picker/locale';
 import { Button, buttonVariants } from '@/shared/ui/button';
 import { cn } from '@/shared/utils';
 
-function Calendar({
+function WeeklyCalendar({
   className,
   classNames,
   showOutsideDays = false,
@@ -244,4 +244,4 @@ function CalendarDayButton({
   );
 }
 
-export { Calendar, CalendarDayButton };
+export { WeeklyCalendar, CalendarDayButton };
