@@ -46,7 +46,7 @@ function WeeklyCalendar({
   });
 
   return (
-    <div ref={swipeAreaRef}>
+    <div className="w-full" ref={swipeAreaRef}>
       <DayPicker
         locale={ko}
         hideNavigation
@@ -115,7 +115,7 @@ function WeeklyCalendar({
           table: 'w-full border-collapse',
           weekdays: cn('flex', defaultClassNames.weekdays),
           weekday: cn(
-            'text-secondary opacity-50 [&:nth-child(1)]:text-destructive [&:nth-child(1)]:opacity-100 [&:nth-child(7)]:text-action [&:nth-child(7)]:opacity-100',
+            'text-secondary opacity-50 font-bold',
             'rounded-md flex-1 typography-caption-bold select-none',
             defaultClassNames.weekday,
           ),
@@ -187,7 +187,7 @@ function WeeklyCalendar({
               <div {...props}>
                 <button
                   className={cn(
-                    'cursor-pointer w-9 h-9 flex items-center justify-center rounded-full text-[14px] font-medium text-white/80 hover:bg-white/5 in-data-[selected=true]:hover:bg-primary',
+                    'cursor-pointer w-9 h-9 flex items-center justify-center rounded-full text-[14px] font-medium hover:bg-white/5 in-data-[selected=true]:hover:bg-primary',
                     defaultClassNames.day,
                   )}
                 >
@@ -233,13 +233,14 @@ function CalendarDayButton({
       data-range-end={modifiers.range_end}
       data-range-middle={modifiers.range_middle}
       className={cn(
-        'in-data-[today=true]:text-primary data-[selected-single=true]:text-white data-[selected-single=true]:bg-primary data-[selected-single=true]:rounded-full p-0',
+        'text-secondary opacity-70 p-0 flex cursor-pointer aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 leading-none font-bold',
+        'in-data-[today=true]:text-primary in-data-[today=true]:opacity-100',
+        'data-[selected-single=true]:opacity-100 data-[selected-single=true]:text-white data-[selected-single=true]:bg-primary data-[selected-single=true]:rounded-full',
         'data-[range-middle=true]:bg-accent data-[range-middle=true]:text-accent-foreground data-[range-middle=true]:rounded-none',
         // 'data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[range-start=true]:rounded-md data-[range-start=true]:rounded-l-md',
         // 'data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-end=true]:rounded-md data-[range-end=true]:rounded-r-md',
         // 'group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-ring/50 group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:ring-[3px]',
         'dark:hover:text-accent-foreground enabled:hover:scale-100 transition-none',
-        'flex cursor-pointer aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 leading-none font-normal [&>span]:text-xs [&>span]:opacity-70',
         defaultClassNames.day,
         className,
       )}
