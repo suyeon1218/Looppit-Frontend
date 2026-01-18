@@ -1,0 +1,105 @@
+import { useState } from 'react';
+
+import { Container } from '@/shared/stories/components';
+
+import { Calendar } from './calendar';
+
+import type { Meta, StoryObj } from '@storybook/nextjs';
+
+type StorybookCalendarProps = {
+  type: 'weekly' | 'monthly';
+  selected: Date;
+  onSelect: (date: Date) => void;
+};
+
+const meta = {
+  title: 'Components/Calendar',
+  component: Calendar,
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component: 'Looppit의 Calendar 컴포넌트는 캘린더를 표시합니다.',
+      },
+    },
+  },
+  argTypes: {
+    type: {
+      control: 'select',
+      options: ['weekly', 'monthly'],
+      description: '캘린더 타입을 선택하세요',
+      table: {
+        defaultValue: { summary: 'weekly' },
+      },
+    },
+    selected: {
+      control: 'date',
+      description: '선택된 날짜를 설정하세요',
+      table: {
+        defaultValue: { summary: new Date().toISOString() },
+      },
+    },
+    onSelect: {
+      action: 'select',
+      description: '날짜 선택 시 호출되는 핸들러',
+      table: {
+        type: { summary: '(date: Date) => void' },
+      },
+    },
+  },
+  args: {
+    type: 'weekly',
+    selected: new Date(),
+    onSelect: () => {},
+  },
+  decorators: [
+    (Story) => (
+      <Container>
+        <Story />
+      </Container>
+    ),
+  ],
+} satisfies Meta<StorybookCalendarProps>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    mode: 'single',
+    required: true,
+    type: 'weekly',
+    selected: new Date(),
+    onSelect: () => {},
+  },
+};
+
+export const Weekly: Story = {
+  render: function Weekly() {
+    const [selected, setSelected] = useState<Date>(new Date());
+    return (
+      <Calendar
+        mode="single"
+        required
+        type="weekly"
+        selected={selected}
+        onSelect={setSelected}
+      />
+    );
+  },
+};
+
+export const Monthly: Story = {
+  render: function Monthly() {
+    const [selected, setSelected] = useState<Date>(new Date());
+    return (
+      <Calendar
+        mode="single"
+        required
+        type="monthly"
+        selected={selected}
+        onSelect={setSelected}
+      />
+    );
+  },
+};
