@@ -106,7 +106,7 @@ function WeeklyCalendar({
             defaultClassNames.dropdown,
           ),
           caption_label: cn(
-            'select-none font-bold',
+            'select-none font-bold text-white',
             captionLayout === 'label'
               ? 'text-base'
               : 'rounded-md pl-2 pr-1 flex items-center gap-1 text-sm h-8 [&>svg]:text-muted-foreground [&>svg]:size-3.5',
