@@ -22,7 +22,6 @@ export const useWeeklyCalendar = () => {
   };
 
   return {
-    currentWeekStart,
     isNotCurrentWeek,
     onClickPreviousWeek,
     onClickNextWeek,
