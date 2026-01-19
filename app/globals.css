@@ -1,10 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-html {
-  font-size: 14px;
-}
-
 :root {
   /* Looppit Custom Colors - 추가 색상 */
 
