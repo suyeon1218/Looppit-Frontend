@@ -15,7 +15,7 @@ export const setupErrorInterceptors = (instance: AxiosInstance) => {
   instance.interceptors.response.use(
     (response) => response,
     (error) => {
-      return handleResponseError(error);
+      return handleResponseError(instance, error);
     },
   );
 };

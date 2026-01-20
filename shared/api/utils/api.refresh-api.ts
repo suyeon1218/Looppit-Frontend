@@ -1,5 +1,7 @@
 'use server';
 
+import { cookies } from 'next/headers';
+
 import { apiServerClient } from '@/shared/api/api.server-client';
 import {
   createApiError,
@@ -7,24 +9,24 @@ import {
 } from '@/shared/api/utils/api.response-format';
 import { applySetCookieHeader } from '@/shared/utils';
 
-export const postLogin = async (formData: FormData) => {
+export async function postReissue() {
   try {
-    const response = await apiServerClient.requestRaw('/user/login', {
+    const cookieStore = await cookies();
+    const cookieString = cookieStore.toString();
+    const response = await apiServerClient.requestRaw('/auth/reissue', {
       method: 'POST',
-      body: formData,
       headers: {
-        'Content-Type': 'multipart/form-data',
+        Cookie: cookieString,
       },
     });
-
     const setCookieHeaders = response.headers['set-cookie'];
 
     if (setCookieHeaders && Array.isArray(setCookieHeaders)) {
       await applySetCookieHeader(setCookieHeaders);
     }
 
-    return createApiResponse(response.data, '로그인에 성공했습니다.');
+    return createApiResponse(response.data, '토큰 재발급에 성공했습니다.');
   } catch (error) {
     return createApiError(error);
   }
-};
+}

@@ -1,6 +1,6 @@
-import { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 
-import { fetchRefreshToken } from './api.action';
+import { postReissue } from './api.refresh-api';
 
 type SuspendedRequest = {
   config: InternalAxiosRequestConfig;
@@ -17,7 +17,7 @@ class RefreshTokenHandler {
     this.suspendedRequests = [];
   }
 
-  private addSuspendedRequest(config: InternalAxiosRequestConfig) {
+  private async addSuspendedRequest(config: InternalAxiosRequestConfig) {
     return new Promise((resolve, reject) => {
       this.suspendedRequests.push({ config, resolve, reject });
     });
@@ -28,67 +28,65 @@ class RefreshTokenHandler {
     this.isRefreshing = false;
   }
 
-  private processSuspendedRequests(refreshToken: string) {
-    return Promise.all(
-      this.suspendedRequests.map((suspendedRequest) => {
-        suspendedRequest.config.headers.Authorization = `Bearer ${refreshToken}`;
-
-        suspendedRequest.resolve(suspendedRequest.config);
+  private async processSuspendedRequests(axiosInstance: AxiosInstance) {
+    await Promise.all(
+      this.suspendedRequests.map(({ config, resolve, reject }) => {
+        axiosInstance.request(config).then(resolve).catch(reject);
       }),
     );
   }
 
-  private rejectSuspendedRequests(error: unknown) {
-    return Promise.all(
+  private async rejectSuspendedRequests(error: unknown) {
+    await Promise.all(
       this.suspendedRequests.map((suspendedRequest) => {
         suspendedRequest.reject(error);
       }),
     );
   }
 
+  private async performRefresh(
+    axiosInstance: AxiosInstance,
+    onAuthorizationError: () => void,
+  ) {
+    try {
+      await postReissue();
+      await this.processSuspendedRequests(axiosInstance);
+    } catch (error) {
+      onAuthorizationError();
+      await this.rejectSuspendedRequests(error);
+    } finally {
+      this.clearSuspendedRequests();
+    }
+  }
+
   async handleUnAuthorizedError(
+    axiosInstance: AxiosInstance,
     error: AxiosError,
     onAuthorizationError: () => void,
   ) {
-    const originalRequest = error.config;
-
-    if (!originalRequest) {
-      return Promise.reject(error);
-    }
-
-    if (this.isRefreshing) {
-      return await this.addSuspendedRequest(originalRequest);
-    }
-
-    this.isRefreshing = true;
-
     try {
-      const { accessToken } = await fetchRefreshToken();
+      const originalRequest = error.config;
 
-      // store.set(tokenAtom, accessToken);
+      if (!originalRequest || originalRequest._retry) {
+        return Promise.reject(error);
+      }
 
-      this.processSuspendedRequests(accessToken);
+      originalRequest._retry = true;
+      const requestPromise = this.addSuspendedRequest(originalRequest);
 
-      originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-      return originalRequest;
+      if (!this.isRefreshing) {
+        this.isRefreshing = true;
+        await this.performRefresh(axiosInstance, onAuthorizationError);
+      }
+      return requestPromise;
     } catch (error) {
-      onAuthorizationError();
-      this.rejectSuspendedRequests(error);
-
       return Promise.reject(error);
-    } finally {
-      this.clearSuspendedRequests();
     }
   }
 }
 
 const refreshTokenHandler = new RefreshTokenHandler();
 
-export const handleUnAuthorizedError = async (
-  error: AxiosError,
-  onAuthorizationError: () => void,
-) =>
-  await refreshTokenHandler.handleUnAuthorizedError(
-    error,
-    onAuthorizationError,
-  );
+const handleUnAuthorizedError =
+  refreshTokenHandler.handleUnAuthorizedError.bind(refreshTokenHandler);
+export { handleUnAuthorizedError };
