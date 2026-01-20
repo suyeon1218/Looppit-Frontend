@@ -17,6 +17,11 @@ import { ko } from 'react-day-picker/locale';
 import { Button, buttonVariants } from '@/shared/ui/button';
 import { cn } from '@/shared/utils';
 
+type MonthlyCalendarProps = React.ComponentProps<typeof DayPicker> & {
+  buttonVariant?: React.ComponentProps<typeof Button>['variant'];
+  SubDayComponent?: React.ReactNode;
+};
+
 function MonthlyCalendar({
   className,
   classNames,
@@ -25,10 +30,9 @@ function MonthlyCalendar({
   buttonVariant = 'ghost',
   formatters,
   components,
+  SubDayComponent,
   ...props
-}: React.ComponentProps<typeof DayPicker> & {
-  buttonVariant?: React.ComponentProps<typeof Button>['variant'];
-}) {
+}: MonthlyCalendarProps) {
   const defaultClassNames = getDefaultClassNames();
 
   return (
@@ -111,7 +115,7 @@ function MonthlyCalendar({
         ),
         day: cn(
           'relative w-full h-full p-0 text-center  group/day aspect-square select-none ',
-          'flex flex-col items-center justify-center',
+          'flex flex-col gap-[2px] items-center justify-center',
           props.showWeekNumber
             ? '[&:nth-child(2)[data-selected=true]_button]:rounded-l-md'
             : '[&:first-child[data-selected=true]_button]:rounded-l-md',
@@ -190,6 +194,7 @@ function MonthlyCalendar({
               >
                 {children}
               </button>
+              {SubDayComponent}
             </div>
           );
         },

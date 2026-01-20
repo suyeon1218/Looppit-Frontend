@@ -12,6 +12,7 @@ type CalendarProps = ComponentProps<typeof DayPicker> & {
   buttonVariant?: ComponentProps<typeof Button>['variant'];
 } & {
   type: 'weekly' | 'monthly';
+  SubDayComponent?: React.ReactNode;
 };
 
 function Calendar({ type = 'monthly', ...props }: CalendarProps) {

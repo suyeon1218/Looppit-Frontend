@@ -15,6 +15,12 @@ import { cn } from '@/shared/utils';
 
 import { useWeeklyCalendar } from './calendar.hooks';
 
+type WeeklyCalendarProps = React.ComponentProps<typeof DayPicker> & {
+  buttonVariant?: React.ComponentProps<typeof Button>['variant'];
+  SubDayComponent?: React.ReactNode;
+};
+
+
 function WeeklyCalendar({
   className,
   classNames,
@@ -22,10 +28,9 @@ function WeeklyCalendar({
   buttonVariant = 'ghost',
   formatters,
   components,
+  SubDayComponent,
   ...props
-}: React.ComponentProps<typeof DayPicker> & {
-  buttonVariant?: React.ComponentProps<typeof Button>['variant'];
-}) {
+}: WeeklyCalendarProps) {
   const defaultClassNames = getDefaultClassNames();
   const {
     month,
@@ -130,7 +135,7 @@ function WeeklyCalendar({
           ),
           day: cn(
             'relative w-full h-full p-0 text-center  group/day aspect-square select-none ',
-            'flex flex-col items-center justify-center',
+            'flex gap-[2px] flex-col items-center justify-center',
             'data-[hidden=true]:hidden',
             props.showWeekNumber
               ? '[&:nth-child(2)[data-selected=true]_button]:rounded-l-md'
@@ -193,6 +198,7 @@ function WeeklyCalendar({
                 >
                   {children}
                 </button>
+                {SubDayComponent}
               </div>
             );
           },
