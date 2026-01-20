@@ -192,7 +192,8 @@ function WeeklyCalendar({
               <div {...props}>
                 <button
                   className={cn(
-                    'cursor-pointer w-9 h-9 flex items-center justify-center rounded-full text-[14px] font-medium hover:bg-white/5 in-data-[selected=true]:hover:bg-primary',
+                    'cursor-pointer w-8 h-8 flex items-center justify-center rounded-full text-[14px] font-medium text-secondary hover:bg-white/5 in-data-[selected=true]:hover:bg-primary',
+                    'data-[today=true]:text-primary data-[today=true]:opacity-100',
                     defaultClassNames.day,
                   )}
                 >
