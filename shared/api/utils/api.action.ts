@@ -3,7 +3,6 @@
 import { cookies } from 'next/headers';
 
 import { PROJECT_ENV } from '@/shared/constants';
-import { setRefreshTokenToCookie } from '@/shared/utils';
 
 import { RefreshTokenResponse } from '../api.types';
 
@@ -26,8 +25,6 @@ export const fetchRefreshToken = async (): Promise<RefreshTokenResponse> => {
     }
 
     const data = await response.json();
-
-    await setRefreshTokenToCookie(data.refreshToken);
 
     return data;
   } catch (error) {

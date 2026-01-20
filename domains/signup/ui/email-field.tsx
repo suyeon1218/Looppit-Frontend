@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
-import toast from 'react-hot-toast';
+
+import { toast } from 'sonner';
 
 import { SignupFormValues } from '@/domains/signup/types';
 import { isApiError } from '@/shared/guard';

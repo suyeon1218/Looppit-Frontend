@@ -1,11 +1,6 @@
 import { AxiosError, InternalAxiosRequestConfig } from 'axios';
-import { getDefaultStore } from 'jotai';
-
-import { tokenAtom } from '@/shared/store/auth.atom';
 
 import { fetchRefreshToken } from './api.action';
-
-const store = getDefaultStore();
 
 type SuspendedRequest = {
   config: InternalAxiosRequestConfig;
@@ -70,7 +65,7 @@ class RefreshTokenHandler {
     try {
       const { accessToken } = await fetchRefreshToken();
 
-      store.set(tokenAtom, accessToken);
+      // store.set(tokenAtom, accessToken);
 
       this.processSuspendedRequests(accessToken);
 

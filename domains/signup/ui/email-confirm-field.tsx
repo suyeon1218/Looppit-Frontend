@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import toast from 'react-hot-toast';
+
+import { toast } from 'sonner';
 
 import { isApiError } from '@/shared/guard';
 import { Button } from '@/shared/ui/button';

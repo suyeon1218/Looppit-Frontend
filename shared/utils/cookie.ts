@@ -86,7 +86,7 @@ const parseSetCookieString = (
     const [key, val] = attr.split('=');
     const lowerKey = key.toLowerCase();
 
-    if (lowerKey === 'path') options.path = val;
+    if (lowerKey === 'path') options.path = '/';
     if (lowerKey === 'httponly') options.httpOnly = true;
     if (lowerKey === 'max-age') options.maxAge = parseInt(val, 10);
     if (lowerKey === 'expires') options.expires = new Date(val);

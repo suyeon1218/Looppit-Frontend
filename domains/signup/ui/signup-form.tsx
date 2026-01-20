@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import toast, { Toaster } from 'react-hot-toast';
 
 import { useRouter } from 'next/navigation';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
 
 import { useSignup } from '@/domains/signup/hooks';
 import { signupFormSchema, SignupFormValues } from '@/domains/signup/types';
@@ -81,7 +81,6 @@ export default function SignupForm() {
           >
             {isSignupPending ? '회원가입 중...' : '회원가입'}
           </Button>
-          <Toaster position="top-center" />
         </div>
       </form>
     </Form>
