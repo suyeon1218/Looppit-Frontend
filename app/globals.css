@@ -6,6 +6,7 @@
 
   --background: #161022;
   --secondary: #a492c9;
+  --secondary-muted: #a492c926;
   --primary: #5b13ec;
 
   --card: #1e182a;
@@ -31,7 +32,7 @@
   --color-background: var(--background);
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
-
+  --color-secondary-muted: var(--secondary-muted);
   --color-card: var(--card);
   --color-card-lighter: var(--card-lighter);
 
