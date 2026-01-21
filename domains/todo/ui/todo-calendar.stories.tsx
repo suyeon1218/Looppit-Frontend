@@ -6,13 +6,6 @@ import { TodoCalendar } from './todo-calendar';
 
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
-type StorybookTodoCalendarProps = {
-  type: 'weekly' | 'monthly';
-  completedColors: { color: string; id: string }[];
-  selected: Date;
-  onSelect: (date: Date) => void;
-};
-
 const meta = {
   title: 'Components/TodoCalendar',
   component: TodoCalendar,
@@ -20,7 +13,9 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Looppit의 Calendar 컴포넌트는 캘린더를 표시합니다.',
+        component: 'Looppit의 TodoCalendar 컴포넌트는 투두리스트 도메인이 들어갔을 때의 캘린더를 표시합니다.' +
+        '해당일의 카테고리 안에 있는 투두리스트를 모두 완료했을 경우 해당 날짜에 완료 동그라미를 표시합니다.' +
+        '완료 동그라미의 색상은 카테고리의 색상을 사용합니다.'
       },
     },
   },
@@ -60,7 +55,7 @@ const meta = {
       </Container>
     ),
   ],
-} satisfies Meta<StorybookTodoCalendarProps>;
+} satisfies Meta<typeof TodoCalendar> as Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
