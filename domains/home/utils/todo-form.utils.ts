@@ -1,9 +1,9 @@
 import { dayjs } from '@/shared/lib';
 
-import { TodoApiResponse } from '../types/todo.types';
+import { TodoResponse } from '../types/todo.types';
 
 type GetInitialFormValuesParams = {
-  initialTodo?: TodoApiResponse & { categoryId?: number };
+  initialTodo?: TodoResponse & { categoryId?: number };
   initialCategoryId?: number | null;
 };
 

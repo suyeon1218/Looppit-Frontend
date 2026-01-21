@@ -1,11 +1,11 @@
-import { CategoryTodoApiResponse } from '@/domains/home/types/todo.types';
+import { CategoryWithTodosResponse } from '@/domains/home/types';
 
 export const updateTodoInCategory = (
-  categories: CategoryTodoApiResponse[],
+  categories: CategoryWithTodosResponse[],
   categoryId: number,
   todoId: number,
   completed: boolean,
-): CategoryTodoApiResponse[] => {
+): CategoryWithTodosResponse[] => {
   return categories.map((category) => {
     if (category.categoryId !== categoryId) {
       return category;
