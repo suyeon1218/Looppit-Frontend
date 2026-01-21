@@ -33,6 +33,14 @@ const eslintConfig = defineConfig([
     },
     rules: {
       '@typescript-eslint/no-unused-expressions': 'error',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+        },
+      ],
       'react/jsx-curly-brace-presence': [
         'error',
         { props: 'never', children: 'never' },
