@@ -51,3 +51,15 @@ export const updateTodo = async ({
     data,
   );
 };
+
+export const deleteTodo = async ({
+  categoryId,
+  todoId,
+}: {
+  categoryId: number;
+  todoId: number;
+}): Promise<void> => {
+  await apiClient.delete<ApiResponse<void>>(
+    `/categories/${categoryId}/todos/${todoId}`,
+  );
+};

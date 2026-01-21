@@ -5,6 +5,7 @@ import {
   createTodo,
   toggleTodoDone,
   updateTodo,
+  deleteTodo,
 } from '@/domains/home/api/todo.api';
 import { todoKeys } from '@/domains/home/todo.keys';
 import {
@@ -90,6 +91,28 @@ export const useUpdateTodo = (yearMonth: string) => {
     onError: (error) => {
       toast.error('투두 수정에 실패했어요');
       console.error('투두 수정 오류:', error);
+    },
+  });
+};
+
+export const useDeleteTodo = (yearMonth: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({
+      categoryId,
+      todoId,
+    }: {
+      categoryId: number;
+      todoId: number;
+    }) => deleteTodo({ categoryId, todoId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: todoKeys.list(yearMonth) });
+      toast.success('투두가 삭제되었어요');
+    },
+    onError: (error) => {
+      toast.error('투두 삭제에 실패했어요');
+      console.error('투두 삭제 오류:', error);
     },
   });
 };
