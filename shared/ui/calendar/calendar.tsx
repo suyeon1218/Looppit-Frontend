@@ -5,7 +5,7 @@ import { DayPicker } from 'react-day-picker';
 
 import { Button } from '@/shared/ui/button';
 
-import { MonthlyCalendar } from './montly-calendar';
+import { MonthlyCalendar } from './monthly-calendar';
 import { WeeklyCalendar } from './weekly-calendar';
 
 type CalendarProps = ComponentProps<typeof DayPicker> & {
