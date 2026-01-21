@@ -3,22 +3,25 @@
 import {
   CategoryTodoSectionList,
   HabitStreakCard,
+  TodoDeleteSheetContainer,
   UserGreeting,
 } from '@/domains/home/ui';
-
-import { TodoFormSheetProvider } from './contexts';
+import { TodoActionsSheetContainer } from '@/domains/home/ui/todo-actions-sheet-container';
+import { TodoFormSheetContainer } from '@/domains/home/ui/todo-form-sheet-container';
 
 export const HomeScreen = () => {
   return (
-    <TodoFormSheetProvider>
-      <div className="pt-9 px-5 min-h-screen flex flex-col gap-5">
-        <UserGreeting
-          name="Alex"
-          profileImage="https://picsum.photos/seed/alex/200/200"
-        />
-        <HabitStreakCard />
-        <CategoryTodoSectionList />
-      </div>
-    </TodoFormSheetProvider>
+    <div className="pt-9 px-5 min-h-screen flex flex-col gap-5">
+      <UserGreeting
+        name="Alex"
+        profileImage="https://picsum.photos/seed/alex/200/200"
+      />
+      <HabitStreakCard />
+      <CategoryTodoSectionList />
+      {/* Sheet */}
+      <TodoFormSheetContainer />
+      <TodoActionsSheetContainer />
+      <TodoDeleteSheetContainer />
+    </div>
   );
 };
