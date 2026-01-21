@@ -6,12 +6,6 @@ import { Calendar } from './calendar';
 
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
-type StorybookCalendarProps = {
-  type: 'weekly' | 'monthly';
-  selected: Date;
-  onSelect: (date: Date) => void;
-};
-
 const meta = {
   title: 'Components/Calendar',
   component: Calendar,
@@ -59,7 +53,7 @@ const meta = {
       </Container>
     ),
   ],
-} satisfies Meta<StorybookCalendarProps>;
+} satisfies Meta<typeof Calendar> as Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
