@@ -1,10 +1,17 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+
 import { Button } from '@/shared/ui/button';
 import { Form } from '@/shared/ui/form';
 
-import { OnboardingStep } from './onboarding.types';
+import {
+  onboardingFormSchema,
+  OnboardingFormValues,
+  OnboardingStep,
+  OnboardingStepSchema,
+} from './onboarding.types';
 import {
   OnboardingLayout,
   CompletedStep,
@@ -13,11 +20,13 @@ import {
 } from './ui';
 
 function OnboardingScreen() {
-  const form = useForm({
+  const form = useForm<OnboardingFormValues>({
+    resolver: zodResolver(onboardingFormSchema),
     defaultValues: {
       nickname: '',
-      profileImage: '',
+      profileImage: null,
     },
+    mode: 'onChange',
   });
   const [step, setStep] = useState<OnboardingStep>('nicknameStep');
 
@@ -29,6 +38,9 @@ function OnboardingScreen() {
     }
   };
 
+  const buttonDisabled = !OnboardingStepSchema[step].safeParse(form.getValues())
+    .success;
+
   return (
     <Form {...form}>
       <OnboardingLayout currentStep={step}>
@@ -36,7 +48,7 @@ function OnboardingScreen() {
         {step === 'profileImageStep' && <ProfileStep />}
         {step === 'completedStep' && <CompletedStep />}
         <div className="absolute bottom-0 left-0 w-full px-6 pb-12 pt-10 z-10">
-          <Button onClick={handleNextStep}>
+          <Button onClick={handleNextStep} disabled={buttonDisabled}>
             {step === 'completedStep' ? '완료' : '다음'}
           </Button>
         </div>

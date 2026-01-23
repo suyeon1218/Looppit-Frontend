@@ -4,14 +4,16 @@ import { FieldError } from '@/shared/ui/field';
 import { FormControl, FormField, FormItem } from '@/shared/ui/form';
 import { Input } from '@/shared/ui/input';
 
+import { OnboardingFormValues } from '../onboarding.types';
+
 function NicknameStep() {
-  const { control, formState } = useFormContext();
+  const { control, formState } = useFormContext<OnboardingFormValues>();
   const error = formState.errors.nickname;
 
   return (
     <FormField
       control={control}
-      name="email"
+      name="nickname"
       render={({ field }) => (
         <FormItem className="w-full flex flex-col gap-2">
           <FormControl>
