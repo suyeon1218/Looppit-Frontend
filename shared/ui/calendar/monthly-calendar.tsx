@@ -114,7 +114,7 @@ function MonthlyCalendar({
           defaultClassNames.week_number,
         ),
         day: cn(
-          'relative w-full h-full p-0 text-center  group/day aspect-square select-none ',
+          'relative w-full h-full p-0 text-center min-h-[50px] group/day select-none ',
           'flex flex-col gap-[2px] items-center justify-center',
           props.showWeekNumber
             ? 'nth-2:[data-selected=true]_button:rounded-l-md'
@@ -188,7 +188,7 @@ function MonthlyCalendar({
             <div {...props}>
               <button
                 className={cn(
-                  'cursor-pointer w-9 h-9 flex items-center justify-center rounded-full text-[14px] font-medium text-white/80 hover:bg-white/5 in-data-[selected=true]:hover:bg-primary',
+                  'grow shrink-0 cursor-pointer w-[50px] h-[50px] flex items-center justify-center rounded-full text-[14px] font-medium text-white/80 hover:bg-white/5 in-data-[selected=true]:hover:bg-primary',
                   defaultClassNames.day,
                 )}
               >
@@ -233,7 +233,7 @@ function CalendarDayButton({
       data-range-end={modifiers.range_end}
       data-range-middle={modifiers.range_middle}
       className={cn(
-        'size-6 in-data-[today=true]:text-primary data-[selected-single=true]:text-white data-[selected-single=true]:bg-primary data-[selected-single=true]:rounded-full p-0',
+        'w-8 h-8 in-data-[today=true]:text-primary data-[selected-single=true]:text-white data-[selected-single=true]:bg-primary data-[selected-single=true]:rounded-full p-0',
         'data-[range-middle=true]:bg-accent data-[range-middle=true]:text-accent-foreground data-[range-middle=true]:rounded-none',
         // 'data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[range-start=true]:rounded-md data-[range-start=true]:rounded-l-md',
         // 'data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-end=true]:rounded-md data-[range-end=true]:rounded-r-md',

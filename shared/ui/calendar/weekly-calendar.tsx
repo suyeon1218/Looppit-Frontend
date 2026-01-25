@@ -132,7 +132,7 @@ function WeeklyCalendar({
             defaultClassNames.week_number,
           ),
           day: cn(
-            'relative w-full h-full p-0 text-center  group/day aspect-square select-none ',
+            'relative w-full h-full p-0 text-center group/day select-none min-h-[50px]',
             'flex gap-[2px] flex-col items-center justify-center',
             'data-[hidden=true]:hidden',
             props.showWeekNumber
@@ -190,7 +190,7 @@ function WeeklyCalendar({
               <div {...props}>
                 <button
                   className={cn(
-                    'cursor-pointer w-8 h-8 flex items-center justify-center rounded-full text-[14px] font-medium text-secondary hover:bg-white/5 in-data-[selected=true]:hover:bg-primary',
+                    'grow shrink-0 cursor-pointer w-[50px] h-[50px] flex items-center justify-center rounded-full text-[14px] font-medium text-secondary hover:bg-white/5 in-data-[selected=true]:hover:bg-primary',
                     'data-[today=true]:text-primary data-[today=true]:opacity-100',
                     defaultClassNames.day,
                   )}
@@ -237,7 +237,7 @@ function CalendarDayButton({
       data-range-end={modifiers.range_end}
       data-range-middle={modifiers.range_middle}
       className={cn(
-        'text-secondary opacity-70 p-0 flex cursor-pointer aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 leading-none font-bold',
+        'w-8 h-8 text-secondary opacity-70 p-0 flex cursor-pointer aspect-square size-auto min-w-(--cell-size) flex-col gap-1 leading-none font-bold',
         'in-data-[today=true]:text-primary in-data-[today=true]:opacity-100',
         'data-[selected-single=true]:opacity-100 data-[selected-single=true]:text-white data-[selected-single=true]:bg-primary data-[selected-single=true]:rounded-full',
         'data-[range-middle=true]:bg-accent data-[range-middle=true]:text-accent-foreground data-[range-middle=true]:rounded-none',
