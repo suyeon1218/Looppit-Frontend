@@ -1,0 +1,43 @@
+import { CategoryColor } from '@/domains/category/constants';
+
+import { CategoryWithTodosResponse } from '../types';
+
+type CategoryColorInfo = Record<
+  string,
+  {
+    color: CategoryColor;
+    completed: boolean;
+  }
+>;
+export type CompletedCategoryData = Record<string, CategoryColorInfo>;
+
+/**
+ * todo 데이터 속에 있는 날짜별로 완료된 카테고리 색상 정보를 반환합니다.
+ */
+export const getCompletedCategoryData = (
+  todos: CategoryWithTodosResponse[],
+): CompletedCategoryData => {
+  const completedCategoryData: CompletedCategoryData = {};
+
+  todos.forEach((category) => {
+    const { categoryId, categoryColor, todo } = category;
+
+    todo.forEach(({ date, completed }) => {
+      const categoryIdString = categoryId.toString();
+
+      if (!completedCategoryData[date]) {
+        completedCategoryData[date] = {};
+      }
+      if (!completedCategoryData[date][categoryIdString]) {
+        completedCategoryData[date][categoryIdString] = {
+          color: categoryColor,
+          completed: completed,
+        };
+      }
+      completedCategoryData[date][categoryIdString].completed =
+        completedCategoryData[date][categoryIdString].completed && completed;
+    });
+  });
+
+  return completedCategoryData;
+};
