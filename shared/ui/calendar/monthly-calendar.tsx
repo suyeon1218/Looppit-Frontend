@@ -194,7 +194,7 @@ function MonthlyCalendar({
               >
                 {children}
               </button>
-              {SubDayComponent}
+              {SubDayComponent && SubDayComponent({ day: props.day })}
             </div>
           );
         },

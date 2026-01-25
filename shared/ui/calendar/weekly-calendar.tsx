@@ -197,7 +197,7 @@ function WeeklyCalendar({
                 >
                   {children}
                 </button>
-                {SubDayComponent}
+                {SubDayComponent && SubDayComponent({ day: props.day })}
               </div>
             );
           },
