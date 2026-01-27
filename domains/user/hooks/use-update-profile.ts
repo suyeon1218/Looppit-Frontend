@@ -7,10 +7,10 @@ import {
 import { getImageContentType } from '@/domains/s3/s3.utils';
 
 import { useUpdateUser } from './use-user-query';
-import { UpdateUserRequest } from '../user.types';
+import { UpdateUserRequest, UserProfileFormValues } from '../user.types';
 
 type UpdateProfileOptions = {
-  form: UpdateUserRequest;
+  form: UserProfileFormValues;
   onSuccess?: () => void;
 };
 

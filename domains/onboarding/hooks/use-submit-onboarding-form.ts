@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 
 import { useUpdateProfile } from '@/domains/user/hooks';
-import { UpdateUserRequest } from '@/domains/user/user.types';
+import { UserProfileFormValues } from '@/domains/user/user.types';
 
-type UpdateFormData = Omit<UpdateUserRequest, 'content'>;
+type UpdateFormData = Omit<UserProfileFormValues, 'content'>;
 
 export const useSubmitOnboardingForm = () => {
   const { updateProfile } = useUpdateProfile();
