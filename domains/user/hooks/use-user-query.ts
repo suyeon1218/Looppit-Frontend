@@ -6,9 +6,9 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 
-import { getUserProfile, updateUser } from './user.api';
-import { userKeys } from './user.keys';
-import { UserProfileResponse } from './user.types';
+import { getUserProfile, updateUser } from '../user.api';
+import { userKeys } from '../user.keys';
+import { UserProfileResponse } from '../user.types';
 
 const profileQueryOption = queryOptions<UserProfileResponse>({
   queryKey: ['user-profile'],
