@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { toast } from 'sonner';
 
 import { Icon } from '@/shared/ui/icon';
-import { isImageFile } from '@/shared/utils';
+import { imageFileValidator } from '@/shared/utils';
 
 import { OnboardingFormValues } from '../onboarding.types';
 
@@ -38,12 +38,14 @@ function ProfileImageStep() {
   }, [imageUrl]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file && isImageFile(file)) {
-      setValue('profileImage', file);
-    } else {
-      toast.error('이미지 파일만 업로드할 수 있습니다.');
+    const file = e.target.files?.[0] ?? null;
+    const result = imageFileValidator(file);
+
+    if (!result.isValid) {
+      toast.error(result.errorMessage);
+      return;
     }
+    setValue('profileImage', file);
   };
 
   return (
