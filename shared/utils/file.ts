@@ -14,15 +14,13 @@ type ImageFileValidatorResult = {
   errorMessage: string | undefined;
 };
 
-export function imageFileValidator(
-  file: File | null,
-): ImageFileValidatorResult {
+export function imageFileValidator(file?: File): ImageFileValidatorResult {
   const result: ImageFileValidatorResult = {
     isValid: false,
     errorMessage: undefined,
   };
   if (!file) {
-    result.errorMessage = '이미지 파일을 선택해주세요.';
+    result.isValid = true;
     return result;
   }
   if (!isImageFile(file)) {

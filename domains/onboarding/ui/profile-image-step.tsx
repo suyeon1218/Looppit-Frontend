@@ -38,9 +38,10 @@ function ProfileImageStep() {
   }, [imageUrl]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] ?? null;
+    const file = e.target.files?.[0];
     const result = imageFileValidator(file);
 
+    if (!file) return;
     if (!result.isValid) {
       toast.error(result.errorMessage);
       return;
