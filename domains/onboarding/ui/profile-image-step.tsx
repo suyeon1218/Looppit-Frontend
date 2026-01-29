@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { toast } from 'sonner';
 
 import { Icon } from '@/shared/ui/icon';
-import { imageFileValidator } from '@/shared/utils';
+import { getImageFileValidatorError } from '@/shared/utils';
 
 import { OnboardingFormValues } from '../onboarding.types';
 
@@ -26,11 +26,11 @@ function ProfileImageStep() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    const result = imageFileValidator(file);
+    const error = getImageFileValidatorError(file);
 
     if (!file) return;
-    if (!result.isValid) {
-      toast.error(result.errorMessage);
+    if (error) {
+      toast.error(error);
       return;
     }
     setValue('profileImage', file);

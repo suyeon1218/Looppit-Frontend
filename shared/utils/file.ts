@@ -9,29 +9,15 @@ export function isWithinFileSize(
   return file.size <= maxSize;
 }
 
-type ImageFileValidatorResult = {
-  isValid: boolean;
-  errorMessage: string | undefined;
-};
-
-export function imageFileValidator(file?: File): ImageFileValidatorResult {
-  const result: ImageFileValidatorResult = {
-    isValid: false,
-    errorMessage: undefined,
-  };
+export function getImageFileValidatorError(file?: File): string | undefined {
   if (!file) {
-    result.isValid = true;
-    return result;
+    return undefined;
   }
   if (!isImageFile(file)) {
-    result.errorMessage = '이미지 파일만 업로드할 수 있습니다.';
-    return result;
+    return '이미지 파일만 업로드할 수 있습니다.';
   }
   if (!isWithinFileSize(file)) {
-    result.errorMessage = '이미지 파일 크기는 10MB를 초과할 수 없습니다.';
-    return result;
+    return '이미지 파일 크기는 10MB를 초과할 수 없습니다.';
   }
-  result.isValid = true;
-
-  return result;
+  return undefined;
 }
