@@ -11,7 +11,7 @@ import {
   DrawerContent,
   DrawerDescription,
   DrawerHeader,
-  DrawerOverlay,
+  DrawerTitle,
 } from '@/shared/ui/drawer';
 
 type CategoryUtilsSheetProps = {
@@ -34,41 +34,41 @@ export const CategoryUtilsSheet = ({
 
   return (
     <Drawer open={open} onOpenChange={setOpen}>
-      <div>
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerHeader>카테고리</DrawerHeader>
+      <DrawerContent>
+        <DrawerHeader>
+          <DrawerTitle>카테고리</DrawerTitle>
           <DrawerDescription className="sr-only">
             카테고리 변경 메뉴입니다
           </DrawerDescription>
-          <div className="space-y-2.5">
-            <Button variant="outline" size="body" align="start" asChild>
-              <Link href={`/category/${categoryId}/edit`}>
-                <Button.OutlineIcon
-                  icon="ic_edit"
-                  bgColor="bg-gray-500/15"
-                  iconClassName="fill-gray-400"
-                />
-                수정하기
-              </Link>
-            </Button>
-            <Button
-              variant="outline"
-              size="body"
-              align="start"
-              onClick={handleDelete}
-            >
+        </DrawerHeader>
+
+        <div className="space-y-2.5">
+          <Button variant="outline" size="body" align="start" asChild>
+            <Link href={`/category/${categoryId}/edit`}>
               <Button.OutlineIcon
-                icon="ic_delete"
-                bgColor="bg-destructive/10"
-                iconClassName="fill-destructive"
+                icon="ic_edit"
+                bgColor="bg-gray-500/15"
+                iconClassName="fill-gray-400"
               />
-              <span className="text-destructive">삭제하기</span>
-            </Button>
-          </div>
-          <DrawerClose>닫기</DrawerClose>
-        </DrawerContent>
-      </div>
+              수정하기
+            </Link>
+          </Button>
+          <Button
+            variant="outline"
+            size="body"
+            align="start"
+            onClick={handleDelete}
+          >
+            <Button.OutlineIcon
+              icon="ic_delete"
+              bgColor="bg-destructive/10"
+              iconClassName="fill-destructive"
+            />
+            <span className="text-destructive">삭제하기</span>
+          </Button>
+        </div>
+        <DrawerClose>닫기</DrawerClose>
+      </DrawerContent>
     </Drawer>
   );
 };
