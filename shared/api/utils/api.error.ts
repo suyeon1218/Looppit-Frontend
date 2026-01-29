@@ -3,7 +3,7 @@ import { AxiosError, AxiosInstance, isAxiosError } from 'axios';
 import { handleUnAuthorizedError } from './api.refresh';
 import { createApiError } from './api.response-format';
 
-import type { ErrorCode, ErrorResponse } from '../api.types';
+import type { ErrorCode } from '../api.types';
 
 /**
  * 에러 코드를 추출하는 유틸
@@ -31,14 +31,13 @@ export const handleResponseError = (
     return handleNetworkError();
   }
 
-  const { status, data } = error.response;
+  const { status } = error.response;
 
   if (status === 401) {
     return handleUnAuthorizedError(instance, error);
   }
 
-  const errorResponse = data as ErrorResponse | undefined;
-  const apiError = createApiError(errorResponse?.message);
+  const apiError = createApiError(error);
 
   return Promise.reject(apiError);
 };

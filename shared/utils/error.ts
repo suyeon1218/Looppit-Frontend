@@ -1,3 +1,5 @@
+import { isAxiosError } from 'axios';
+
 /**
  * Error 객체인지 확인하는 타입 가드
  * @param error - 확인할 에러 객체
@@ -17,5 +19,13 @@ export const getErrorMessage = (
   error: unknown,
   defaultMessage: string,
 ): string => {
+  if (isAxiosError(error)) {
+    return error.response?.data?.message ?? error.message ?? defaultMessage;
+  }
+
   return isError(error) ? error.message : defaultMessage;
+};
+
+export const getResponseCode = (error: unknown) => {
+  return isAxiosError(error) ? error.response?.data?.responseCode : undefined;
 };
