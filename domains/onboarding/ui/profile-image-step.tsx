@@ -66,7 +66,7 @@ function ProfileImageStep() {
           <Image
             width={128}
             height={128}
-            className="object-cover"
+            className="size-full object-cover"
             alt="Profile"
             src={imageUrl}
           />
