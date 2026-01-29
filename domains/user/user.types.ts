@@ -9,8 +9,13 @@ export const userProfileSchema = z.object({
   provider: z.unknown(),
 });
 
+export const UserProfileResponseSchema = z.object({
+  responseCode: z.string(),
+  result: userProfileSchema,
+});
+
 export type UserProfile = z.infer<typeof userProfileSchema>;
-export type UserProfileResponse = z.infer<typeof userProfileSchema>;
+export type UserProfileResponse = z.infer<typeof UserProfileResponseSchema>;
 
 export const updateUserRequestSchema = z.object({
   nickname: z.string(),
