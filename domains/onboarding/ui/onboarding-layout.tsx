@@ -1,6 +1,9 @@
 import { Icon } from '@/shared/ui/icon';
 
-import { ONBOARDING_STEPS_INFO } from '../onboarding.constants';
+import {
+  ONBOARDING_STEPS,
+  ONBOARDING_STEPS_INFO,
+} from '../onboarding.constants';
 import { OnboardingStep } from '../onboarding.types';
 
 interface OnboardingLayoutProps {
@@ -14,8 +17,9 @@ function OnboardingLayout({
   currentStep,
   children,
 }: OnboardingLayoutProps) {
-  const isFirstStep = currentStep === 'nicknameStep';
-  const isLastStep = currentStep === 'completedStep';
+  const isFirstStep = currentStep === ONBOARDING_STEPS[0];
+  const isLastStep =
+    currentStep === ONBOARDING_STEPS[ONBOARDING_STEPS.length - 1];
 
   const handlePreviousStep = () => {
     if (isFirstStep) return;

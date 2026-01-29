@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/shared/ui/button';
 import { Form } from '@/shared/ui/form';
 
+import { ONBOARDING_STEPS } from './onboarding.constants';
 import { useOnboardingStep } from './onboarding.hooks';
 import {
   onboardingFormSchema,
@@ -30,7 +31,7 @@ function OnboardingScreen() {
   });
   const watch = useWatch({ control: form.control });
   const buttonDisabled = !OnboardingStepSchema[step].safeParse(watch).success;
-  const isLastStep = step === 'completedStep';
+  const isLastStep = step === ONBOARDING_STEPS[ONBOARDING_STEPS.length - 1];
 
   return (
     <Form {...form}>
