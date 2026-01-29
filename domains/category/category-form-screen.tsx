@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 import { useRouter } from 'next/navigation';
 
 import {
@@ -12,7 +14,7 @@ import {
   useCategoryForm,
   useCategoryFormParams,
 } from '@/domains/category/hooks';
-import { CategoryForm } from '@/domains/category/ui';
+import { CategoryForm, CategoryIconsSheet } from '@/domains/category/ui';
 import { QueryErrorBoundary } from '@/shared/ui/async-boundary';
 import { DetailHeader } from '@/shared/ui/detail-header';
 import { Form } from '@/shared/ui/form';
@@ -24,6 +26,7 @@ type CategoryFormScreenProps = {
 const CategoryFormScreenContent = ({ mode }: CategoryFormScreenProps) => {
   const router = useRouter();
   const isEditMode = mode === CATEGORY_FORM_MODE.EDIT;
+  const [isOpen, setIsOpen] = useState(false);
 
   const formParams = useCategoryFormParams(mode);
   const {
@@ -58,8 +61,9 @@ const CategoryFormScreenContent = ({ mode }: CategoryFormScreenProps) => {
           />
           <CategoryForm.IconSelector
             icons={CATEGORY_ICONS}
-            selectedIcon={selectedIcon || CATEGORY_ICONS[0]}
+            selectedIcon={selectedIcon}
             onIconChange={(icon) => form.setValue('categoryIconName', icon)}
+            onMoreOpen={() => setIsOpen(true)}
           />
           <CategoryForm.ColorSelector
             colors={CATEGORY_COLORS}
@@ -74,6 +78,12 @@ const CategoryFormScreenContent = ({ mode }: CategoryFormScreenProps) => {
           buttonText={isEditMode ? '카테고리 수정하기' : '카테고리 만들기'}
         />
       </Form>
+      <CategoryIconsSheet
+        open={isOpen}
+        setOpen={setIsOpen}
+        selectedIcon={selectedIcon}
+        onIconChange={(icon) => form.setValue('categoryIconName', icon)}
+      />
     </>
   );
 };

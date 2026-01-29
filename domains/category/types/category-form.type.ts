@@ -5,7 +5,7 @@ export type UseCategoryFormProps =
   | {
       mode: typeof CATEGORY_FORM_MODE.CREATE;
       onSuccess?: () => void;
-      initCategoryValues?: never;
+      initCategoryValues: CategoryFormValues;
       initialCategoryId?: never;
     }
   | {

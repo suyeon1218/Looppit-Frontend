@@ -8,6 +8,7 @@ import {
   CategoryFormValues,
   UseCategoryFormProps,
 } from '@/domains/category/types';
+import { cn } from '@/shared/utils';
 
 export const toCategoryPayload = ({
   categoryName,
@@ -55,6 +56,16 @@ export const getCategoryFormParams = ({
   }
   return {
     mode,
+    initCategoryValues: getInitialFormValues(),
     onSuccess,
   };
+};
+
+export const getIconOptionButtonClassName = (isSelected: boolean) => {
+  return cn(
+    'size-full aspect-square rounded-full flex items-center justify-center transition-all shadow-lg',
+    isSelected
+      ? 'bg-primary text-white shadow-lg shadow-primary/30'
+      : 'bg-card text-secondary/60 hover:text-white',
+  );
 };

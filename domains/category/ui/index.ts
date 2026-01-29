@@ -7,5 +7,6 @@ export * from './category-list';
 export * from './category-detail-header';
 export * from './category-detail-info';
 export * from './category-utils-sheet';
+export * from './category-icons-sheet';
 
 export * from './category-form';

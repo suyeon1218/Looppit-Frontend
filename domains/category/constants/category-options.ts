@@ -11,4 +11,6 @@ export const CATEGORY_ICONS = [
   'ic_add',
 ] as const;
 
+export const MORE_ICON_NAME: CategoryIconName = 'ic_more_horiz';
+
 export type CategoryIconName = (typeof CATEGORY_ICONS)[number];
