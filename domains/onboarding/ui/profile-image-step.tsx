@@ -24,6 +24,18 @@ function ProfileImageStep() {
     return profileImage;
   })();
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    const result = imageFileValidator(file);
+
+    if (!file) return;
+    if (!result.isValid) {
+      toast.error(result.errorMessage);
+      return;
+    }
+    setValue('profileImage', file);
+  };
+
   /**
    * 이미지 URL이 blob URL인 경우 메모리 누수 방지용 코드
    * 이전 이미지 URL을 참조하는 객체가 없어지면 메모리 누수가 발생할 수 있음
@@ -36,18 +48,6 @@ function ProfileImageStep() {
       }
     };
   }, [imageUrl]);
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    const result = imageFileValidator(file);
-
-    if (!file) return;
-    if (!result.isValid) {
-      toast.error(result.errorMessage);
-      return;
-    }
-    setValue('profileImage', file);
-  };
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center py-6">
