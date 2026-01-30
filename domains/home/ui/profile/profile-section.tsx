@@ -12,6 +12,7 @@ export function ProfileSection() {
     <UserGreeting
       name={user?.nickname ?? ''}
       imgPath={user?.imgPath ?? null}
+      content={user?.content ?? null}
       onClick={() => router.push('/profile')}
     />
   );
