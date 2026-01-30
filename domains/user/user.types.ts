@@ -20,7 +20,7 @@ export type UserProfileResponse = z.infer<typeof UserProfileResponseSchema>;
 export const userProfileFormSchema = z.object({
   nickname: z.string(),
   content: z.string().optional(),
-  imgPath: z.string().nullable(),
+  imgPath: z.instanceof(File).nullable().or(z.string().nullable()),
 });
 
 export type UserProfileFormValues = z.infer<typeof userProfileFormSchema>;
