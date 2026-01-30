@@ -1,21 +1,21 @@
 import { z } from 'zod';
 
-export const userProfileSchema = z.object({
+export const userSchema = z.object({
   id: z.number(),
   email: z.string(),
   nickname: z.string(),
-  content: z.string(),
-  imgPath: z.string(),
+  content: z.string().nullable(),
+  imgPath: z.string().nullable(),
   provider: z.unknown(),
 });
 
-export const UserProfileResponseSchema = z.object({
+export const GetUserResponseSchema = z.object({
   responseCode: z.string(),
-  result: userProfileSchema,
+  result: userSchema,
 });
 
-export type UserProfile = z.infer<typeof userProfileSchema>;
-export type UserProfileResponse = z.infer<typeof UserProfileResponseSchema>;
+export type User = z.infer<typeof userSchema>;
+export type GetUserResponse = z.infer<typeof GetUserResponseSchema>;
 
 export const userProfileFormSchema = z.object({
   nickname: z.string(),
@@ -24,4 +24,4 @@ export const userProfileFormSchema = z.object({
 });
 
 export type UserProfileFormValues = z.infer<typeof userProfileFormSchema>;
-export type UpdateUserProfileRequest = UserProfileFormValues;
+export type UpdateUserRequest = UserProfileFormValues;

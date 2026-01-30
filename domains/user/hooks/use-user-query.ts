@@ -8,7 +8,7 @@ import {
 
 import { getUserProfile, updateUser } from '../user.api';
 import { userKeys } from '../user.keys';
-import { UserProfile, UserProfileResponse } from '../user.types';
+import { User, GetUserResponse } from '../user.types';
 
 const profileQueryOption = queryOptions<UserProfileResponse>({
   queryKey: ['user-profile'],
@@ -28,7 +28,7 @@ export const useUserProfileWithSuspense = () => {
 };
 
 export const useGetUser = () => {
-  return useQuery<UserProfileResponse, Error, UserProfile>({
+  return useQuery<GetUserResponse, Error, User>({
     queryKey: userKeys.base,
     queryFn: () => getUserProfile(),
     select: (data) => data.result,
