@@ -15,7 +15,7 @@ export function ProfileImageField() {
         render={({ field }) => (
           <InputProfileImage
             imageFile={field.value ?? null}
-            handleFileChange={field.onChange}
+            onFileChange={field.onChange}
           />
         )}
       />
