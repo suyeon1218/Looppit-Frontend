@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { format } from 'date-fns';
 
 import {
-  HabitStreakCard,
+  HabitStreak,
   HomeSheets,
   TodoSections,
   UserGreeting,
@@ -20,7 +20,7 @@ export const HomeScreen = () => {
   return (
     <div className="pt-9 px-5 min-h-screen flex flex-col gap-5">
       <UserGreeting />
-      <HabitStreakCard />
+      <HabitStreak />
       <CalendarSection
         todoYearMonth={todoYearMonth}
         selectedDate={todoDate}

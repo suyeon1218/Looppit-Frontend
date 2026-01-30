@@ -1,4 +1,3 @@
-import { UserProfileLoading } from '@/domains/home/ui';
 import { useUserProfileWithSuspense } from '@/domains/user/user.hooks';
 import { QueryErrorBoundary } from '@/shared/ui/async-boundary';
 
@@ -8,19 +7,21 @@ export const UserGreetingContent = () => {
   const { data } = useUserProfileWithSuspense();
 
   return (
-    <UserProfileCard
-      userId={data.id}
-      nickname={data.nickname}
-      imagePath={data.imagePath}
-    />
+    <UserProfileCard.Root>
+      <UserProfileCard.Item
+        userId={data.id}
+        nickname={data.nickname}
+        imagePath={data.imagePath}
+      />
+    </UserProfileCard.Root>
   );
 };
 
 export const UserGreeting = () => {
   return (
     <QueryErrorBoundary
-      loadingFallback={<UserProfileLoading />}
-      errorFallback={<UserProfileLoading />}
+      loadingFallback={<UserProfileCard.Skeleton />}
+      errorFallback={<UserProfileCard.Skeleton />}
     >
       <UserGreetingContent />
     </QueryErrorBoundary>
