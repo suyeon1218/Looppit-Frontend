@@ -4,10 +4,8 @@ import { useAtomValue } from 'jotai';
 
 import { useDeleteTodo } from '@/domains/home/hooks';
 import { todoYearMonthAtom } from '@/domains/home/store';
-import {
-  SheetComponentProps,
-  TodoDeleteSheetProps,
-} from '@/domains/home/types';
+import { TodoDeleteSheetProps } from '@/domains/home/types';
+import { SheetComponentProps } from '@/shared/types';
 import { Button } from '@/shared/ui/button';
 import {
   Drawer,
