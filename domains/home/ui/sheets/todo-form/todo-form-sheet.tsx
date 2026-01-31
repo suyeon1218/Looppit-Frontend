@@ -9,7 +9,8 @@ import { useCategories } from '@/domains/category/hooks';
 import { TODO_FORM_MODE } from '@/domains/home/constants';
 import { useTodoForm } from '@/domains/home/hooks';
 import { todoDateAtom } from '@/domains/home/store';
-import { SheetComponentProps, TodoFormSheetProps } from '@/domains/home/types';
+import { TodoFormSheetProps } from '@/domains/home/types';
+import { SheetComponentProps } from '@/shared/types';
 import { Form } from '@/shared/ui/form';
 
 import { CategorySelectSheet } from '../category-select-sheet';
