@@ -1,5 +1,7 @@
 import { DayProps } from 'react-day-picker';
 
+import { format } from 'date-fns';
+
 import { CompletedCategoryData } from '@/domains/home/utils';
 
 interface TodoCalendarCompletedDotsProps {
@@ -11,7 +13,7 @@ export function TodoCalendarCompletedDots({
   day,
   completedColorsByDate,
 }: TodoCalendarCompletedDotsProps) {
-  const targetDate = day.date.toISOString().split('T')[0];
+  const targetDate = format(day.date, 'yyyy-MM-dd');
   const targetCompletedColors = completedColorsByDate[targetDate];
 
   if (!targetCompletedColors) return null;

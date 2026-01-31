@@ -15,7 +15,7 @@ import { CalendarSection } from './ui/calendar-section';
 
 export const HomeScreen = () => {
   const [todoDate, setTodoDate] = useState<Date>(new Date());
-  const todoYearMonth = format(new Date(todoDate), 'yyyy-MM');
+  const todoYearMonth = format(todoDate, 'yyyy-MM');
 
   return (
     <div className="pt-9 px-5 min-h-screen flex flex-col gap-5">
