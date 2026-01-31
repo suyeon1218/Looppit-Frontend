@@ -26,16 +26,19 @@ function AccountCardLeftIcon({
 interface AccountCardItemRootProps {
   label: string;
   variant?: 'ghost' | 'outline';
+  onClick?: () => void;
   children?: React.ReactNode;
 }
 
 function AccountCardItemRoot({
   label,
   variant = 'ghost',
+  onClick,
   children,
 }: AccountCardItemRootProps) {
   return (
     <div
+      onClick={onClick}
       className={cn(
         'pr-4 flex items-center justify-between',
         variant === 'outline' &&
