@@ -7,6 +7,7 @@ import {
   type DayButton,
 } from 'react-day-picker';
 
+import { startOfMonth } from 'date-fns';
 import {
   ChevronDownIcon,
   ChevronLeftIcon,
@@ -32,6 +33,21 @@ function MonthlyCalendar({
   ...props
 }: MonthlyCalendarProps) {
   const defaultClassNames = getDefaultClassNames();
+  const [month, setMonth] = React.useState<Date>(() =>
+    selected ? startOfMonth(selected) : new Date(),
+  );
+  const lastSyncedSelectedTimeRef = React.useRef<number | null>(
+    selected?.getTime() ?? null,
+  );
+
+  // selected가 바뀐 경우에만 표시 월 동기화 (prev/next로만 이동한 경우엔 덮어쓰지 않음)
+  const selectedTime = selected?.getTime();
+  const monthOfSelected =
+    selectedTime != null ? startOfMonth(new Date(selectedTime)) : null;
+  if (monthOfSelected && selectedTime !== lastSyncedSelectedTimeRef.current) {
+    lastSyncedSelectedTimeRef.current = selectedTime ?? null;
+    setMonth(monthOfSelected);
+  }
 
   return (
     <DayPicker
@@ -39,8 +55,10 @@ function MonthlyCalendar({
       onSelect={onSelect}
       locale={ko}
       showOutsideDays={showOutsideDays}
+      month={month}
+      onMonthChange={setMonth}
       className={cn(
-        'w-full max-w-md bg-background group/calendar p-3 [--cell-size:--spacing(8)] in-data-[slot=card-content]:bg-transparentt in-data-[slot=popover-content]:bg-transparent',
+        'w-full max-w-md group/calendar p-3 [--cell-size:--spacing(8)] in-data-[slot=card-content]:bg-transparentt in-data-[slot=popover-content]:bg-transparent',
         String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
         String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,
         className,

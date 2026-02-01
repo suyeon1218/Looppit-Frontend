@@ -34,7 +34,7 @@ function WeeklyCalendar({
     isNotCurrentWeek,
     onClickPreviousWeek,
     onClickNextWeek,
-  } = useWeeklyCalendar();
+  } = useWeeklyCalendar(selected);
 
   const { swipeAreaRef } = useSwipe({
     onSwipe: (direction) => {

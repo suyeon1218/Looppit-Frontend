@@ -2,8 +2,19 @@ import { useState } from 'react';
 
 import { addWeeks, isSameWeek, startOfWeek, subWeeks } from 'date-fns';
 
-export const useWeeklyCalendar = () => {
-  const [month, setMonth] = useState<Date>(new Date());
+export const useWeeklyCalendar = (selectedDate?: Date) => {
+  const [month, setMonth] = useState<Date>(() =>
+    selectedDate ? startOfWeek(selectedDate) : new Date(),
+  );
+
+  // 선택된 날짜가 바뀌면 해당 날짜가 포함된 주로 표시 주 동기화 (렌더 시점 동기화로 effect 회피)
+  const selectedTime = selectedDate?.getTime();
+  const weekOfSelected =
+    selectedTime != null ? startOfWeek(new Date(selectedTime)) : null;
+
+  if (weekOfSelected && weekOfSelected.getTime() !== month.getTime()) {
+    setMonth(weekOfSelected);
+  }
 
   // 주 단위일 때 현재 표시되는 주를 인덱스로 반환
   const currentWeekStart = startOfWeek(month);
