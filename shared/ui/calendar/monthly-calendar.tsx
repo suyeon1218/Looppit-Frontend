@@ -122,7 +122,7 @@ function MonthlyCalendar({
           'rounded-md flex-1 typography-caption-bold select-none',
           defaultClassNames.weekday,
         ),
-        week: cn('flex w-full mt-2', defaultClassNames.week),
+        week: cn('flex w-full mt-2 min-h-[50px]', defaultClassNames.week),
         week_number_header: cn(
           'select-none w-(--cell-size)',
           defaultClassNames.week_number_header,
@@ -132,8 +132,8 @@ function MonthlyCalendar({
           defaultClassNames.week_number,
         ),
         day: cn(
-          'relative w-full h-full p-0 text-center min-h-[50px] group/day select-none ',
-          'flex flex-col gap-[2px] items-center justify-center',
+          'relative w-full h-full p-0 text-center group/day select-none',
+          'flex flex-col gap-[2px] items-center justify-start',
           props.showWeekNumber
             ? 'nth-2:[data-selected=true]_button:rounded-l-md'
             : '[&:first-child[data-selected=true]_button]:rounded-l-md',
@@ -206,7 +206,7 @@ function MonthlyCalendar({
             <div {...props}>
               <button
                 className={cn(
-                  'grow shrink-0 cursor-pointer w-[50px] h-[50px] flex items-center justify-center rounded-full text-[14px] font-medium text-white/80 hover:bg-white/5 in-data-[selected=true]:hover:bg-primary',
+                  'grow shrink-0 cursor-pointer size-8 flex items-center justify-center rounded-full text-[14px] font-medium text-white/80 hover:bg-white/5 in-data-[selected=true]:hover:bg-primary',
                   defaultClassNames.day,
                 )}
               >
