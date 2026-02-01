@@ -1,12 +1,13 @@
 'use client';
 
+import { CompletedCategoryData } from '@/domains/home/utils';
 import { Calendar } from '@/shared/ui/calendar';
 import { CalendarProps } from '@/shared/ui/calendar';
 
 import { TodoCalendarCompletedDots } from './todo-calendar-completed-dots';
 
 type TodoCalendarProps = CalendarProps & {
-  completedColors: { color: string; id: string }[];
+  completedColors: CompletedCategoryData;
 };
 
 function TodoCalendar({
@@ -17,7 +18,12 @@ function TodoCalendar({
   return (
     <Calendar
       type={type}
-      SubDayComponent={<TodoCalendarCompletedDots colors={completedColors} />}
+      SubDayComponent={({ day }) => (
+        <TodoCalendarCompletedDots
+          day={day}
+          completedColorsByDate={completedColors}
+        />
+      )}
       {...props}
     />
   );

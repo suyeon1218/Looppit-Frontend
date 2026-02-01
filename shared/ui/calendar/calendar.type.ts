@@ -1,4 +1,4 @@
-import { DayPicker } from 'react-day-picker';
+import { DayPicker, DayProps } from 'react-day-picker';
 
 export type DayPickerSingleProps = Omit<
   React.ComponentProps<typeof DayPicker>,
@@ -11,13 +11,13 @@ export type DayPickerSingleProps = Omit<
 
 export type CalendarProps = DayPickerSingleProps & {
   type: 'weekly' | 'monthly';
-  SubDayComponent?: React.ReactNode;
+  SubDayComponent?: (props: { day: DayProps['day'] }) => React.ReactNode;
 };
 
 export type MonthlyCalendarProps = DayPickerSingleProps & {
-  SubDayComponent?: React.ReactNode;
+  SubDayComponent?: (props: { day: DayProps['day'] }) => React.ReactNode;
 };
 
 export type WeeklyCalendarProps = DayPickerSingleProps & {
-  SubDayComponent?: React.ReactNode;
+  SubDayComponent?: (props: { day: DayProps['day'] }) => React.ReactNode;
 };

@@ -7,6 +7,7 @@ import {
   type DayButton,
 } from 'react-day-picker';
 
+import { startOfMonth } from 'date-fns';
 import {
   ChevronDownIcon,
   ChevronLeftIcon,
@@ -32,6 +33,21 @@ function MonthlyCalendar({
   ...props
 }: MonthlyCalendarProps) {
   const defaultClassNames = getDefaultClassNames();
+  const [month, setMonth] = React.useState<Date>(() =>
+    selected ? startOfMonth(selected) : new Date(),
+  );
+  const lastSyncedSelectedTimeRef = React.useRef<number | null>(
+    selected?.getTime() ?? null,
+  );
+
+  // selected가 바뀐 경우에만 표시 월 동기화 (prev/next로만 이동한 경우엔 덮어쓰지 않음)
+  const selectedTime = selected?.getTime();
+  const monthOfSelected =
+    selectedTime != null ? startOfMonth(new Date(selectedTime)) : null;
+  if (monthOfSelected && selectedTime !== lastSyncedSelectedTimeRef.current) {
+    lastSyncedSelectedTimeRef.current = selectedTime ?? null;
+    setMonth(monthOfSelected);
+  }
 
   return (
     <DayPicker
@@ -39,8 +55,10 @@ function MonthlyCalendar({
       onSelect={onSelect}
       locale={ko}
       showOutsideDays={showOutsideDays}
+      month={month}
+      onMonthChange={setMonth}
       className={cn(
-        'w-full max-w-md bg-background group/calendar p-3 [--cell-size:--spacing(8)] in-data-[slot=card-content]:bg-transparentt in-data-[slot=popover-content]:bg-transparent',
+        'w-full max-w-md group/calendar p-3 [--cell-size:--spacing(8)] in-data-[slot=card-content]:bg-transparentt in-data-[slot=popover-content]:bg-transparent',
         String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
         String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,
         className,
@@ -104,7 +122,7 @@ function MonthlyCalendar({
           'rounded-md flex-1 typography-caption-bold select-none',
           defaultClassNames.weekday,
         ),
-        week: cn('flex w-full mt-2', defaultClassNames.week),
+        week: cn('flex w-full mt-2 min-h-[50px]', defaultClassNames.week),
         week_number_header: cn(
           'select-none w-(--cell-size)',
           defaultClassNames.week_number_header,
@@ -114,8 +132,8 @@ function MonthlyCalendar({
           defaultClassNames.week_number,
         ),
         day: cn(
-          'relative w-full h-full p-0 text-center  group/day aspect-square select-none ',
-          'flex flex-col gap-[2px] items-center justify-center',
+          'relative w-full h-full p-0 text-center group/day select-none',
+          'flex flex-col gap-[2px] items-center justify-start',
           props.showWeekNumber
             ? 'nth-2:[data-selected=true]_button:rounded-l-md'
             : '[&:first-child[data-selected=true]_button]:rounded-l-md',
@@ -188,13 +206,13 @@ function MonthlyCalendar({
             <div {...props}>
               <button
                 className={cn(
-                  'cursor-pointer w-9 h-9 flex items-center justify-center rounded-full text-[14px] font-medium text-white/80 hover:bg-white/5 in-data-[selected=true]:hover:bg-primary',
+                  'grow shrink-0 cursor-pointer size-8 flex items-center justify-center rounded-full text-[14px] font-medium text-white/80 hover:bg-white/5 in-data-[selected=true]:hover:bg-primary',
                   defaultClassNames.day,
                 )}
               >
                 {children}
               </button>
-              {SubDayComponent}
+              {SubDayComponent && SubDayComponent({ day: props.day })}
             </div>
           );
         },
@@ -233,7 +251,7 @@ function CalendarDayButton({
       data-range-end={modifiers.range_end}
       data-range-middle={modifiers.range_middle}
       className={cn(
-        'size-6 in-data-[today=true]:text-primary data-[selected-single=true]:text-white data-[selected-single=true]:bg-primary data-[selected-single=true]:rounded-full p-0',
+        'w-8 h-8 in-data-[today=true]:text-primary data-[selected-single=true]:text-white data-[selected-single=true]:bg-primary data-[selected-single=true]:rounded-full p-0',
         'data-[range-middle=true]:bg-accent data-[range-middle=true]:text-accent-foreground data-[range-middle=true]:rounded-none',
         // 'data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[range-start=true]:rounded-md data-[range-start=true]:rounded-l-md',
         // 'data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-end=true]:rounded-md data-[range-end=true]:rounded-r-md',
