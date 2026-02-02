@@ -6,10 +6,10 @@ import { OnboardingFormValues } from '../onboarding.types';
 
 function ProfileImageStep() {
   const { setValue, watch } = useFormContext<OnboardingFormValues>();
-  const profileImage = watch('profileImage');
+  const profileImage = watch('imgPath');
 
   const handleFileChange = (file?: File) => {
-    setValue('profileImage', file ?? null);
+    setValue('imgPath', file ?? null);
   };
 
   return (

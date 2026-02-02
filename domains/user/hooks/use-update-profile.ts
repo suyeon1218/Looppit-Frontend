@@ -5,12 +5,8 @@ import { useCreatePresignedUrl } from '@/domains/s3/s3.hooks';
 import { useUpdateUser } from './use-user-query';
 import { UpdateUserRequest } from '../user.types';
 
-type UpdateProfileForm = Omit<UpdateUserRequest, 'imgPath'> & {
-  imageFile?: File;
-};
-
 type UpdateProfileOptions = {
-  form: UpdateProfileForm;
+  form: UpdateUserRequest;
   onSuccess?: () => void;
 };
 
@@ -24,15 +20,14 @@ export const useUpdateProfile = () => {
 
   const updateProfile = useCallback(
     async ({ form, onSuccess }: UpdateProfileOptions) => {
-      const { imageFile } = form;
+      const { imgPath } = form;
       const requestData: UpdateUserRequest = {
         ...form,
         imgPath: null,
       };
-
-      if (imageFile) {
+      if (imgPath instanceof File) {
         const { url } = await createPresignedUrlMutation({
-          fileName: imageFile.name,
+          fileName: imgPath.name,
         });
         requestData.imgPath = url;
       }
