@@ -1,5 +1,4 @@
 import { apiClient } from '@/shared/api/api.client';
-import { ApiResponse } from '@/shared/api/api.types';
 
 import { UpdateUserRequest, GetUserResponse } from './user.types';
 
