@@ -2,11 +2,13 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useAtomValue } from 'jotai';
 import { toast } from 'sonner';
 
 import { Category } from '@/domains/category/types';
 import { TODO_FORM_MODE } from '@/domains/home/constants';
 import { useCreateTodo, useUpdateTodo } from '@/domains/home/hooks';
+import { todoYearMonthAtom } from '@/domains/home/store';
 import {
   TodoFormMode,
   TodoResponse,
@@ -64,7 +66,7 @@ export const useTodoForm = ({
     originalCategoryIdRef.current = null;
   }, [form]);
 
-  const yearMonth = dayjs().format('YYYY-MM');
+  const yearMonth = useAtomValue(todoYearMonthAtom);
   const createTodoMutation = useCreateTodo(yearMonth);
   const updateTodoMutation = useUpdateTodo(yearMonth);
 

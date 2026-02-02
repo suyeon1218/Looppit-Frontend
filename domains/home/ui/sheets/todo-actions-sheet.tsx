@@ -1,8 +1,9 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useAtomValue } from 'jotai';
 
 import { useCreateTodo, useUpdateTodo } from '@/domains/home/hooks';
+import { todoYearMonthAtom } from '@/domains/home/store';
 import {
   SheetComponentProps,
   TodoActionsSheetProps,
@@ -23,8 +24,7 @@ export const TodoActionsSheet = ({
   onClose,
 }: SheetComponentProps<TodoActionsSheetProps>) => {
   const { todo, categoryId } = props;
-
-  const yearMonth = useMemo(() => dayjs().format('YYYY-MM'), []);
+  const yearMonth = useAtomValue(todoYearMonthAtom);
   const updateTodoMutation = useUpdateTodo(yearMonth);
   const createTodoMutation = useCreateTodo(yearMonth);
 

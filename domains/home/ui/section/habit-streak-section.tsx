@@ -1,13 +1,15 @@
 import { useMemo } from 'react';
 
+import { useAtomValue } from 'jotai';
+
 import { useTodosWithSuspense } from '@/domains/home/hooks';
+import { todoYearMonthAtom } from '@/domains/home/store';
 import { HabitStreakCard } from '@/domains/home/ui';
 import { getContinuousDays } from '@/domains/home/utils';
-import dayjs from '@/shared/lib/dayjs';
 import { QueryErrorBoundary } from '@/shared/ui/async-boundary';
 
 const HabitStreakSectionContent = () => {
-  const yearMonth = dayjs().format('YYYY-MM');
+  const yearMonth = useAtomValue(todoYearMonthAtom);
   const { data } = useTodosWithSuspense(yearMonth);
 
   const allDates = useMemo(() => {
