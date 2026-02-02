@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { format } from 'date-fns';
 import { useAtomValue } from 'jotai';
 import { toast } from 'sonner';
 
@@ -16,7 +17,6 @@ import {
   type TodoFormValues,
 } from '@/domains/home/types';
 import { getInitialFormValues } from '@/domains/home/utils';
-import { dayjs } from '@/shared/lib';
 
 type UseTodoFormProps = {
   mode: TodoFormMode;
@@ -30,7 +30,7 @@ type UseTodoFormProps = {
 const getDefaultFormValues = (): TodoFormValues => ({
   title: '',
   categoryId: null,
-  date: dayjs().format('YYYY-MM-DD'),
+  date: format(new Date(), 'yyyy-MM-dd'),
 });
 
 export const useTodoForm = ({

@@ -1,5 +1,6 @@
 'use client';
 
+import { addDays, format, parseISO } from 'date-fns';
 import { useAtomValue } from 'jotai';
 
 import { useCreateTodo, useUpdateTodo } from '@/domains/home/hooks';
@@ -8,7 +9,6 @@ import {
   SheetComponentProps,
   TodoActionsSheetProps,
 } from '@/domains/home/types';
-import { dayjs } from '@/shared/lib';
 import { Button } from '@/shared/ui/button';
 import {
   Drawer,
@@ -43,7 +43,7 @@ export const TodoActionsSheet = ({
         todoId: todo.todoId,
         data: {
           title: todo.title,
-          date: dayjs(todo.date).add(1, 'day').format('YYYY-MM-DD'),
+          date: format(addDays(parseISO(todo.date), 1), 'yyyy-MM-dd'),
           updateCategory: categoryId,
         },
       },
@@ -59,7 +59,7 @@ export const TodoActionsSheet = ({
         categoryId,
         data: {
           title: todo.title,
-          date: dayjs(todo.date).add(1, 'day').format('YYYY-MM-DD'),
+          date: format(addDays(parseISO(todo.date), 1), 'yyyy-MM-dd'),
         },
       },
       {

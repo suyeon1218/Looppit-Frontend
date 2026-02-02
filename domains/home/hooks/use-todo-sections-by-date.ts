@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import dayjs from 'dayjs';
+import { format } from 'date-fns';
 
 import { Category } from '@/domains/category/types';
 import { CategoryWithTodosResponse } from '@/domains/home/types';
@@ -21,7 +21,7 @@ export const useTodoSectionsByDate = (
   selectedDate: Date,
 ) => {
   return useMemo(() => {
-    const selectedDateStr = dayjs(selectedDate).format('YYYY-MM-DD');
+    const selectedDateStr = format(selectedDate, 'yyyy-MM-dd');
     const categoryIdsInData = new Set(todosData.map((item) => item.categoryId));
 
     const sectionsFilteredByDate = todosData.map((item) => ({

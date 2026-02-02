@@ -1,4 +1,4 @@
-import { dayjs } from '@/shared/lib';
+import { format, parseISO } from 'date-fns';
 
 import { TodoResponse } from '../types/todo.types';
 
@@ -23,7 +23,7 @@ export const getInitialFormValues = ({
     categoryId,
     title: initialTodo?.title ?? '',
     date: initialTodo?.date
-      ? dayjs(initialTodo.date).format('YYYY-MM-DD')
-      : dayjs().format('YYYY-MM-DD'),
+      ? format(parseISO(initialTodo.date), 'yyyy-MM-dd')
+      : format(new Date(), 'yyyy-MM-dd'),
   };
 };
