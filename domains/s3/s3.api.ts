@@ -2,7 +2,11 @@ import axios from 'axios';
 
 import { apiClient } from '@/shared/api/api.client';
 
-import { CreatePresignedUrlRequest, PresignedUrlResponse } from './s3.types';
+import {
+  CreatePresignedUrlRequest,
+  PresignedUrlResponse,
+  UploadFileWithPresignedUrlRequest,
+} from './s3.types';
 
 export const createPresignedUrl = async (
   request: CreatePresignedUrlRequest,
@@ -13,7 +17,10 @@ export const createPresignedUrl = async (
   );
 };
 
-export const uploadFileWithPresignedUrl = async (url: string, file: File) => {
+export const uploadFileWithPresignedUrl = async ({
+  url,
+  file,
+}: UploadFileWithPresignedUrlRequest) => {
   return await axios.put(url, file, {
     headers: {
       'Content-Type': file.type,

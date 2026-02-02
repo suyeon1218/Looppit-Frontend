@@ -23,3 +23,12 @@ export const presignedUrlSchema = z.object({
 export type PresignedUrlResponse = ApiResponse<
   z.infer<typeof presignedUrlSchema>
 >;
+
+export const uploadFileWithPresignedUrlRequestSchema = z.object({
+  url: z.string(),
+  file: z.instanceof(File),
+});
+
+export type UploadFileWithPresignedUrlRequest = z.infer<
+  typeof uploadFileWithPresignedUrlRequestSchema
+>;
