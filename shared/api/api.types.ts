@@ -8,6 +8,7 @@ export interface ApiResponse<T> {
 export interface ApiError {
   code: ErrorCode;
   message: string;
+  responseCode?: string;
   field?: string;
 }
 
@@ -18,7 +19,7 @@ export interface ErrorResponse {
   timestamp?: string;
 }
 
-export type HttpStatusCode = 400 | 401 | 403 | 404 | 500 | 502 | 503;
+export type HttpStatusCode = 400 | 401 | 403 | 404 | 409 | 500 | 502 | 503;
 
 export type ErrorMessageMap = Record<HttpStatusCode, string>;
 export type ErrorStatusKey = keyof typeof ERROR_MESSAGE_MAP;
