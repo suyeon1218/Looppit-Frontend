@@ -6,16 +6,16 @@ import { UserProfileFormValues } from '@/domains/user/user.types';
 type UpdateFormData = Omit<UserProfileFormValues, 'content'>;
 
 export const useSubmitOnboardingForm = () => {
-  const { updateProfile, isPending } = useUpdateProfile();
+  const { updateProfileMutations, isPending } = useUpdateProfile();
 
   const submitOnboardingForm = useCallback(
     async (data: UpdateFormData, onSuccess?: () => void) => {
-      await updateProfile({
+      await updateProfileMutations({
         form: data,
         onSuccess,
       });
     },
-    [updateProfile],
+    [updateProfileMutations],
   );
 
   return { submitOnboardingForm, isPending };

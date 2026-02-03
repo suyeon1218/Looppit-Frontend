@@ -34,7 +34,7 @@ export function ProfileScreen() {
 
   const handleUpdateProfile = useCallback(() => {
     updateProfileMutations({
-      formValues: form.getValues(),
+      form: form.getValues(),
       onSuccess: () => {
         toast.success('프로필이 수정되었어요');
       },

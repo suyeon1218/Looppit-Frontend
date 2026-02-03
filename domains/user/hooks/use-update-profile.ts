@@ -46,7 +46,7 @@ export const useUpdateProfile = () => {
     [createPresignedUrlMutation, uploadFileWithPresignedUrlMutation],
   );
 
-  const updateProfile = useCallback(
+  const updateProfileMutations = useCallback(
     async ({ form, onSuccess }: UpdateProfileOptions) => {
       try {
         const { imgPath } = form;
@@ -68,7 +68,7 @@ export const useUpdateProfile = () => {
   );
 
   return {
-    updateProfile,
+    updateProfileMutations,
     isPending: isCreatingPresignedUrl || isUploadingFile || isUpdatingUser,
   };
 };
