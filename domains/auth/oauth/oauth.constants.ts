@@ -6,7 +6,8 @@ export const SOCIAL_PROVIDER_NAVER =
   SOCIAL_PROVIDER_ID_BY_ACCOUNT_PROVIDER.NAVER;
 
 export const OAUTH_REDIRECT = {
-  SUCCESS: '/',
+  /** 기존 사용자 SNS 로그인 성공 시 홈으로 (login_completed 트래킹용 쿼리 포함) */
+  SUCCESS: (provider: string) => `/?oauth_login=${provider.toLowerCase()}`,
   SUCCESS_TO_ONBOARDING: (provider: string) =>
     `/onboarding?oauth_success=${provider.toLowerCase()}`,
   FAILURE: (errorCode: string, provider?: string) =>

@@ -25,16 +25,16 @@ const isOAuthProviderValue =
   createTypeValidator<SocialProvider>(SOCIAL_PROVIDERS);
 
 /**
- * OAuth 성공 처리 훅
+ * OAuth 가입 성공 처리 훅
  *
  * 쿼리 파라미터에서 oauth_success를 확인하고,
- * SNS 로그인 성공 시 signup_completed 트래킹 후 쿼리 파라미터를 제거합니다.
+ * SNS 가입 성공 시 signup_completed 트래킹 후 쿼리 파라미터를 제거합니다.
  *
  * @description
- * - 온보딩 페이지에서 웹/앱 SNS 로그인 성공 리다이렉트를 처리합니다.
+ * - 온보딩 페이지에서 웹/앱 SNS 가입 성공 리다이렉트를 처리합니다.
  * - oauth_success가 소셜 provider일 때 트래킹 후 URL에서 파라미터를 제거합니다.
  */
-export function useOAuthSuccess() {
+export function useOAuthSignupSuccess() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -45,6 +45,33 @@ export function useOAuthSuccess() {
     trackEvent('signup_completed', { method: oauthSuccess });
 
     const newSearchParams = withoutSearchParams(searchParams, 'oauth_success');
+    const newUrl = joinPathWithQuery(pathname, newSearchParams);
+
+    window.history.replaceState(null, '', newUrl);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+}
+
+/**
+ * OAuth 로그인 성공 처리 훅
+ *
+ * 쿼리 파라미터에서 oauth_login을 확인하고,
+ * 기존 사용자 SNS 로그인 성공 시 login_completed 트래킹 후 쿼리 파라미터를 제거합니다.
+ *
+ * @description
+ * - 홈(/) 등으로 리다이렉트된 뒤 oauth_login이 소셜 provider일 때 트래킹 후 URL에서 파라미터를 제거합니다.
+ */
+export function useOAuthLoginSuccess() {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const oauthLogin = searchParams.get('oauth_login');
+    if (!oauthLogin || !isOAuthProviderValue(oauthLogin)) return;
+
+    trackEvent('login_completed', { method: oauthLogin });
+
+    const newSearchParams = withoutSearchParams(searchParams, 'oauth_login');
     const newUrl = joinPathWithQuery(pathname, newSearchParams);
 
     window.history.replaceState(null, '', newUrl);

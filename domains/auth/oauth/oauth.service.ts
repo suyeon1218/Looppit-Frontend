@@ -18,7 +18,7 @@ export const processOAuthLogin = async (
     const { result } = await postOAuthSignupRequest(params);
     return result.isNewMember
       ? OAUTH_REDIRECT.SUCCESS_TO_ONBOARDING(params.provider)
-      : OAUTH_REDIRECT.SUCCESS;
+      : OAUTH_REDIRECT.SUCCESS(params.provider);
   } catch (error) {
     const oauthError = classifyOAuthError(error);
     const providerLower = params.provider?.toLowerCase();

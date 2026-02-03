@@ -2,8 +2,6 @@ import { useForm, useWatch } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useOAuthSuccess } from '@/domains/auth/oauth/oauth.hooks';
-import { useSeedInitialData } from '@/domains/onboarding/hooks';
 import { trackEvent } from '@/shared/lib/posthog';
 import { Button } from '@/shared/ui/button';
 import { Form } from '@/shared/ui/form';
@@ -35,9 +33,6 @@ function OnboardingScreen() {
   const watch = useWatch({ control: form.control });
   const buttonDisabled = !OnboardingStepSchema[step].safeParse(watch).success;
   const isLastStep = step === ONBOARDING_STEPS[ONBOARDING_STEPS.length - 1];
-
-  useOAuthSuccess();
-  useSeedInitialData();
 
   const handleNextStep = () => {
     if (isLastStep) {

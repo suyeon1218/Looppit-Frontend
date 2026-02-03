@@ -6,7 +6,7 @@ import { useUserProfile } from '@/domains/user/user.hooks';
 
 import { identifyUser } from './identify';
 
-export const PostHogUserIdentify = () => {
+export const usePostHogUserIdentify = () => {
   const { data } = useUserProfile();
 
   useEffect(() => {
@@ -14,6 +14,4 @@ export const PostHogUserIdentify = () => {
       identifyUser(data);
     }
   }, [data]);
-
-  return null;
 };
