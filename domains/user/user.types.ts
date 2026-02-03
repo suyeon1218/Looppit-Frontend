@@ -24,4 +24,17 @@ export const userProfileFormSchema = z.object({
 });
 
 export type UserProfileFormValues = z.infer<typeof userProfileFormSchema>;
-export type UpdateUserRequest = UserProfileFormValues;
+
+export const updateUserRequestSchema = z.object({
+  nickname: z.string(),
+  content: z.string().optional(),
+  imgPath: z.string().nullable(),
+});
+
+export type UpdateUserRequest = z.infer<typeof updateUserRequestSchema>;
+
+export const DeleteUserRequestSchema = z.object({
+  password: z.string(),
+});
+
+export type DeleteUserRequest = z.infer<typeof DeleteUserRequestSchema>;
