@@ -7,7 +7,10 @@ export const SOCIAL_PROVIDER_NAVER =
 
 export const OAUTH_REDIRECT = {
   SUCCESS: '/',
-  FAILURE: (errorCode: string) => `/login?error=${errorCode}`,
+  SUCCESS_TO_ONBOARDING: (provider: string) =>
+    `/onboarding?oauth_success=${provider.toLowerCase()}`,
+  FAILURE: (errorCode: string, provider?: string) =>
+    `/login?error=${errorCode}${provider ? `&provider=${provider}` : ''}`,
 } as const;
 
 /**

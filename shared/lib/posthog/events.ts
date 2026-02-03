@@ -1,10 +1,12 @@
+import type { SocialProvider } from '@/domains/auth';
+
 import { isPostHogReady, posthogClient } from './posthog';
 
 /**
  * PostHog 이벤트 타입 정의
  */
 /** 로그인/가입 수단 (이메일 vs SNS) */
-export type AuthMethod = 'email' | 'kakao' | 'naver';
+export type AuthMethod = 'email' | SocialProvider;
 
 export type PostHogEvent =
   | 'login_started'
@@ -48,7 +50,7 @@ export interface PostHogEventProperties {
     error_code?: string;
   };
   oauth_error_occurred: {
-    provider: 'kakao' | 'naver';
+    provider: SocialProvider;
     error_code: string;
     error_message: string;
     pathname: string;

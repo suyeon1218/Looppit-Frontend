@@ -2,7 +2,9 @@ import { useForm, useWatch } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { useOAuthSuccess } from '@/domains/auth/oauth/oauth.hooks';
 import { useSeedInitialData } from '@/domains/onboarding/hooks';
+import { trackEvent } from '@/shared/lib/posthog';
 import { Button } from '@/shared/ui/button';
 import { Form } from '@/shared/ui/form';
 
@@ -34,7 +36,15 @@ function OnboardingScreen() {
   const buttonDisabled = !OnboardingStepSchema[step].safeParse(watch).success;
   const isLastStep = step === ONBOARDING_STEPS[ONBOARDING_STEPS.length - 1];
 
+  useOAuthSuccess();
   useSeedInitialData();
+
+  const handleNextStep = () => {
+    if (isLastStep) {
+      trackEvent('onboarding_completed');
+    }
+    onNextStep();
+  };
 
   return (
     <Form {...form}>
@@ -43,7 +53,7 @@ function OnboardingScreen() {
         {step === 'profileImageStep' && <ProfileImageStep />}
         {step === 'completedStep' && <CompletedStep />}
         <div className="absolute bottom-0 left-0 w-full px-6 pb-12 pt-10 z-10">
-          <Button onClick={onNextStep} disabled={buttonDisabled}>
+          <Button onClick={handleNextStep} disabled={buttonDisabled}>
             {isLastStep ? '완료' : '다음'}
           </Button>
         </div>
