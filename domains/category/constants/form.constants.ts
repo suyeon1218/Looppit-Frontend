@@ -1,4 +1,5 @@
 import { CATEGORY_COLORS, CATEGORY_ICONS } from '@/domains/category/constants';
+import { CategoryIconName } from '@/shared/ui/icon';
 
 export const CATEGORY_FORM_MODE = {
   CREATE: 'create',
@@ -11,5 +12,11 @@ export type CategoryFormMode =
 export const DEFAULT_VALUE = {
   categoryName: '',
   categoryIconName: CATEGORY_ICONS[0],
+  categoryColor: CATEGORY_COLORS[0],
+};
+
+export const DEFAULT_CATEGORY = {
+  categoryName: '개인',
+  categoryIconName: 'ic_favorite' as CategoryIconName,
   categoryColor: CATEGORY_COLORS[0],
 };

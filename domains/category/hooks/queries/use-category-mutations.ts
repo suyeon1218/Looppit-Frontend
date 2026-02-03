@@ -10,7 +10,12 @@ import { categoryKeys } from '@/domains/category/category.keys';
 import { UpdateCategoryParams } from '@/domains/category/types';
 import type { ApiError } from '@/shared/api/api.types';
 
-export const useCreateCategory = () => {
+type UseCreateCategory = {
+  showSuccessToast?: boolean;
+};
+
+export const useCreateCategory = (options: UseCreateCategory = {}) => {
+  const { showSuccessToast = true } = options;
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -20,10 +25,15 @@ export const useCreateCategory = () => {
         queryKey: categoryKeys.list(),
         refetchType: 'all',
       });
-      toast.success('카테고리가 생성되었어요');
+
+      if (showSuccessToast) {
+        toast.success('카테고리가 생성되었어요');
+      }
     },
     onError: (error) => {
-      toast.error('카테고리 생성에 실패했어요');
+      if (showSuccessToast) {
+        toast.error('카테고리 생성에 실패했어요');
+      }
       console.error('카테고리 생성 오류:', error);
     },
   });
