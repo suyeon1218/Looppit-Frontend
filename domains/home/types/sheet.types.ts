@@ -2,6 +2,11 @@ import { TODO_FORM_MODE } from '@/domains/home/constants';
 
 import { TodoResponse } from './todo.types';
 
+export type SheetComponentProps<T> = {
+  props: T;
+  onClose: () => void;
+};
+
 export type TodoFormMode = (typeof TODO_FORM_MODE)[keyof typeof TODO_FORM_MODE];
 
 export type TodoFormSheetProps =
