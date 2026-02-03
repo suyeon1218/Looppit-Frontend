@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -36,8 +36,6 @@ export const useTodoForm = ({
   initialSelectedDate,
   categories,
 }: UseTodoFormProps) => {
-  const originalCategoryIdRef = useRef<number | null>(null);
-
   const initValues = useMemo(() => {
     const { title, categoryId, date } = getInitialFormValues({
       initialTodo,
@@ -54,13 +52,12 @@ export const useTodoForm = ({
 
   const form = useForm<TodoFormValues>({
     resolver: zodResolver(todoFormSchema),
-    defaultValues: initValues,
+    values: initValues,
     mode: 'onChange',
   });
 
   const resetForm = useCallback(() => {
     form.reset(getInitialFormValues({}));
-    originalCategoryIdRef.current = null;
   }, [form]);
 
   const yearMonth = useAtomValue(todoYearMonthAtom);
@@ -102,12 +99,12 @@ export const useTodoForm = ({
 
   const handleUpdate = useCallback(
     (data: TodoFormValues) => {
-      if (!initialTodo || !originalCategoryIdRef.current || !data.categoryId)
+      if (!initialTodo || initValues.categoryId == null || !data.categoryId)
         return;
 
       updateTodoMutation.mutate(
         {
-          categoryId: originalCategoryIdRef.current,
+          categoryId: initValues.categoryId,
           todoId: initialTodo.todoId,
           data: {
             title: data.title.trim(),
@@ -120,7 +117,12 @@ export const useTodoForm = ({
         },
       );
     },
-    [updateTodoMutation, initialTodo, handleMutationSuccess],
+    [
+      updateTodoMutation,
+      initialTodo,
+      initValues.categoryId,
+      handleMutationSuccess,
+    ],
   );
 
   const handleSubmit = useCallback(
@@ -147,11 +149,6 @@ export const useTodoForm = ({
     },
     [form, mode, handleCreate, handleUpdate],
   );
-
-  useEffect(() => {
-    originalCategoryIdRef.current = initValues.categoryId;
-    form.reset(initValues);
-  }, [form, initValues]);
 
   return {
     form,
