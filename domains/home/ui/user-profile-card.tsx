@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { UserProfile } from '@/domains/user/user.types';
+import { User } from '@/domains/user/user.types';
 import { StrictPropsWithChildren } from '@/shared/types';
 import { Skeleton } from '@/shared/ui/skeleton';
 
@@ -17,14 +17,14 @@ const UserProfileCardRow = ({ children }: StrictPropsWithChildren) => {
   return <div className="flex-1">{children}</div>;
 };
 
-type UserProfileCardItemProps = Pick<UserProfile, 'nickname' | 'imagePath'> & {
+type UserProfileCardItemProps = Pick<User, 'nickname' | 'imgPath'> & {
   userId: number;
 };
 
 const UserProfileCardItem = ({
   userId,
   nickname,
-  imagePath,
+  imgPath,
 }: UserProfileCardItemProps) => {
   return (
     <>
@@ -35,7 +35,7 @@ const UserProfileCardItem = ({
         <Image
           className="w-full h-full object-cover"
           alt="Avatar"
-          src={imagePath || '/assets/login-logo.png'}
+          src={imgPath || '/assets/login-logo.png'}
           unoptimized
           width={36}
           height={36}
