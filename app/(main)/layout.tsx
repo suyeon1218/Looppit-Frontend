@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 import { HydrationBoundary } from '@tanstack/react-query';
 
 import { getBaseDehydratedState } from '@/domains/user/utils';
+import { PostHogUserIdentify } from '@/shared/lib/posthog';
 import { StrictPropsWithChildren } from '@/shared/types/components';
 import { BottomNavigation } from '@/shared/ui/bottom-navigation';
 
@@ -15,6 +16,7 @@ export default async function MainLayout({
 
   return (
     <HydrationBoundary state={baseState}>
+      <PostHogUserIdentify />
       {children}
       <div className="h-[65px]" />
       <div className="fixed bottom-0 w-full max-w-xl">
