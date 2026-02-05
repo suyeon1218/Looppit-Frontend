@@ -2,8 +2,8 @@ import { cache } from 'react';
 
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 
+import { profileQueryOption } from '@/domains/user/hooks';
 import { getUserProfile } from '@/domains/user/user.api';
-import { profileQueryOption } from '@/domains/user/user.hooks';
 import { prefetchWithCookies } from '@/shared/lib/query';
 
 /**
