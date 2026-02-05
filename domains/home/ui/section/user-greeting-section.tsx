@@ -1,18 +1,25 @@
+import Link from 'next/link';
+
 import { UserProfileCard } from '@/domains/home/ui';
-import { useUserProfileWithSuspense } from '@/domains/user/user.hooks';
+import { useUserProfileWithSuspense } from '@/domains/user/hooks';
 import { QueryErrorBoundary } from '@/shared/ui/async-boundary';
 
 export const UserGreetingSectionContent = () => {
-  const { data } = useUserProfileWithSuspense();
+  const {
+    data: { result },
+  } = useUserProfileWithSuspense();
 
   return (
-    <UserProfileCard.Root>
-      <UserProfileCard.Item
-        userId={data.id}
-        nickname={data.nickname}
-        imagePath={data.imagePath}
-      />
-    </UserProfileCard.Root>
+    <Link href="/profile">
+      <UserProfileCard.Root>
+        <UserProfileCard.Item
+          userId={result.id}
+          nickname={result.nickname}
+          imgPath={result.imgPath}
+          content={result.content}
+        />
+      </UserProfileCard.Root>
+    </Link>
   );
 };
 

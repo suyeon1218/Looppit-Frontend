@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { UserProfile } from '@/domains/user/user.types';
+import { User } from '@/domains/user/user.types';
+import { ASSET_URL } from '@/shared/constants';
 import { StrictPropsWithChildren } from '@/shared/types';
 import { Skeleton } from '@/shared/ui/skeleton';
 
@@ -17,14 +18,18 @@ const UserProfileCardRow = ({ children }: StrictPropsWithChildren) => {
   return <div className="flex-1">{children}</div>;
 };
 
-type UserProfileCardItemProps = Pick<UserProfile, 'nickname' | 'imagePath'> & {
+type UserProfileCardItemProps = Pick<
+  User,
+  'nickname' | 'imgPath' | 'content'
+> & {
   userId: number;
 };
 
 const UserProfileCardItem = ({
   userId,
   nickname,
-  imagePath,
+  imgPath,
+  content,
 }: UserProfileCardItemProps) => {
   return (
     <>
@@ -35,7 +40,7 @@ const UserProfileCardItem = ({
         <Image
           className="w-full h-full object-cover"
           alt="Avatar"
-          src={imagePath || '/assets/login-logo.png'}
+          src={imgPath || ASSET_URL.DEFAULT_IMAGE}
           unoptimized
           width={36}
           height={36}
@@ -45,9 +50,7 @@ const UserProfileCardItem = ({
         <h1 className="typography-title-medium">
           {nickname}님, 오늘도 반가워요
         </h1>
-        <p className="text-secondary/80 typography-caption-medium">
-          작은 성취가 모여 큰 변화를 만들어요
-        </p>
+        <p className="text-secondary/80 typography-caption-medium">{content}</p>
       </UserProfileCardRow>
     </>
   );
