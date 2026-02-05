@@ -1,0 +1,14 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "typescript.preferences.removeUnusedImports": true,
+  "typescript.preferences.removeUnusedLocals": true,
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.classFunctions": ["cva", "cn", "cx", "clsx"],
+  "editor.quickSuggestions": {
+    "strings": "on"
+  }
+}

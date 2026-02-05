@@ -1,26 +1,115 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Looppit Custom Colors - 추가 색상 */
+
+  --background: #161022;
+  --secondary: #a492c9;
+  --secondary-muted: #a492c926;
+  --primary: #5b13ec;
+
+  --card: #1e182a;
+  --card-lighter: #2a223a;
+
+  --white-soft: rgba(255, 255, 255, 0.1);
+  --white-softer: rgba(255, 255, 255, 0.05);
+
+  --surface: #221933;
+  --chip: #2f2348;
+
+  --positive: #4ade80;
+  --action: #818cf8;
+  --destructive: #ef4444;
+
+  --radius-small: 12px;
+  --radius-medium: 24px;
+  --radius-large: 32px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --radius-small: 12px;
+  --radius-medium: 24px;
+  --radius-large: 32px;
+
+  /* Custom Colors - 추가 색상 */
+  --color-background: #161022;
+  --color-primary: #5b13ec;
+  --color-secondary: #a492c9;
+  --color-secondary-muted: #a492c926;
+
+  --color-white-soft: var(--white-soft);
+  --color-white-softer: var(--white-softer);
+  --color-card: #1e182a;
+  --color-card-lighter: #2a223a;
+
+  --color-white-soft: rgba(255, 255, 255, 0.1);
+  --color-white-softer: rgba(255, 255, 255, 0.05);
+
+  --color-surface: #221933;
+  --color-chip: #2f2348;
+
+  --color-positive: #4ade80;
+  --color-action: #818cf8;
+  --color-destructive: #ef4444;
+
+  /* Typography Styles */
+  --font-wanted-sans: var(--font-wanted-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Typography Styles */
+@utility typography-title-lg {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+@utility typography-title-medium {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+@utility typography-body-bold {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+@utility typography-body-semibold {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@utility typography-caption-bold {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+@utility typography-caption-medium {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+@layer base {
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    appearance: none;
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type='number'] {
+    appearance: textfield;
+    -moz-appearance: textfield;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
