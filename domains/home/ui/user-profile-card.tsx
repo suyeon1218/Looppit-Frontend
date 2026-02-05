@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { User } from '@/domains/user/user.types';
+import { ASSET_URL } from '@/shared/constants';
 import { StrictPropsWithChildren } from '@/shared/types';
 import { Skeleton } from '@/shared/ui/skeleton';
 
@@ -39,7 +40,7 @@ const UserProfileCardItem = ({
         <Image
           className="w-full h-full object-cover"
           alt="Avatar"
-          src={imgPath || '/assets/login-logo.png'}
+          src={imgPath || ASSET_URL.DEFAULT_IMAGE}
           unoptimized
           width={36}
           height={36}

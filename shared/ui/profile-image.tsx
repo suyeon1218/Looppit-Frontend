@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import { ASSET_URL } from '@/shared/constants';
+
 import { cn } from '../utils';
 
 interface ProfileImageProps {
@@ -37,7 +39,7 @@ export function ProfileImage({
         height={sizeValue}
         className="w-full h-full object-cover"
         alt="Profile"
-        src={imageUrl ?? '/default-image.png'}
+        src={imageUrl ?? ASSET_URL.DEFAULT_IMAGE}
       />
     </div>
   );

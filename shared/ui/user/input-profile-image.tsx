@@ -6,6 +6,7 @@ import Image from 'next/image';
 
 import { toast } from 'sonner';
 
+import { ASSET_URL } from '@/shared/constants';
 import { getImageFileValidatorError } from '@/shared/utils';
 
 import { IconButton } from '../icon-button';
@@ -71,7 +72,7 @@ export function InputProfileImage({
             height={128}
             className="w-full h-full object-cover"
             alt="Profile"
-            src={imageUrl ?? '/default-image.png'}
+            src={imageUrl ?? ASSET_URL.DEFAULT_IMAGE}
           />
         </div>
         <IconButton
