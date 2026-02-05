@@ -1,3 +1,5 @@
+import { useRouter } from 'next/navigation';
+
 import { useDeleteUser } from '@/domains/user/hooks';
 import { StrictPropsWithChildren } from '@/shared/types';
 import { Button } from '@/shared/ui/button';
@@ -19,13 +21,16 @@ type DeleteAccountSheetTriggerProps = StrictPropsWithChildren<{
 export function DeleteAccountSheetTrigger({
   children,
 }: DeleteAccountSheetTriggerProps) {
+  const router = useRouter();
   const { mutate: deleteUser } = useDeleteUser();
 
   const handleClickDelete = () => {
     deleteUser(
       { password: 'test' },
       {
-        onSuccess: () => {},
+        onSuccess: () => {
+          router.push('/');
+        },
       },
     );
   };

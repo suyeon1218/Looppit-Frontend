@@ -1,5 +1,3 @@
-import { useRouter } from 'next/navigation';
-
 import {
   queryOptions,
   useSuspenseQuery,
@@ -11,31 +9,29 @@ import { toast } from 'sonner';
 
 import { isApiError } from '@/shared/guard';
 
-import { deleteUser, getUserProfile, updateUser } from '../user.api';
+import { deleteUser, updateUser, getUser } from '../user.api';
 import { userKeys } from '../user.keys';
 import { User, GetUserResponse } from '../user.types';
 
-const profileQueryOption = queryOptions<GetUserResponse>({
-  queryKey: ['user-profile'],
-  queryFn: getUserProfile,
+export const profileQueryOption = queryOptions<GetUserResponse>({
+  queryKey: userKeys.base,
+  queryFn: () => getUser(),
   retry: false,
   refetchOnMount: false,
   refetchOnWindowFocus: false,
   refetchOnReconnect: false,
 });
 
-export const useUserProfile = () => {
-  return useQuery<GetUserResponse>(profileQueryOption);
-};
-
-export const useUserProfileWithSuspense = () => {
-  return useSuspenseQuery(profileQueryOption);
-};
-
 export const useGetUser = () => {
   return useQuery<GetUserResponse, Error, User>({
-    queryKey: userKeys.base,
-    queryFn: () => getUserProfile(),
+    ...profileQueryOption,
+    select: (data) => data.result,
+  });
+};
+
+export const useGetUserWithSuspense = () => {
+  return useSuspenseQuery({
+    ...profileQueryOption,
     select: (data) => data.result,
   });
 };
@@ -63,15 +59,12 @@ export const useUpdateUser = () => {
 
 export const useDeleteUser = () => {
   const queryClient = useQueryClient();
-  const router = useRouter();
 
   return useMutation({
     mutationFn: deleteUser,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: userKeys.base });
-
       toast.success('회원탈퇴가 완료되었어요.');
-      router.push('/');
     },
   });
 };
