@@ -16,6 +16,7 @@ export const UserGreetingSectionContent = () => {
           userId={result.id}
           nickname={result.nickname}
           imgPath={result.imgPath}
+          content={result.content}
         />
       </UserProfileCard.Root>
     </Link>
